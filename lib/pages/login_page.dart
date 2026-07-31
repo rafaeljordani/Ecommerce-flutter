@@ -1,4 +1,3 @@
-import 'package:ecommerce/shared/app_colors.dart';
 import 'package:ecommerce/shared/app_text_style.dart';
 import 'package:ecommerce/shared/widgets/app_elevated_button.dart';
 import 'package:ecommerce/shared/widgets/app_text_field.dart';
@@ -21,6 +20,7 @@ class LoginPage extends StatelessWidget {
               Text('+DevsEcomm', style: AppTextStyle.title),
               const Spacer(flex: 2),
               const AppTextField(hintText: 'email@dominio.com'),
+              const SizedBox(height: 20),
               const AppTextField(hintText: '************'),
               Align(
                 alignment: Alignment.topRight,
@@ -32,15 +32,16 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
               ),
-              const AppElevatedButton(
-                color: AppColors.black,
-                textColor: AppColors.white,
+              AppElevatedButton(
+                type: ButtonType.filled,
+                onPressed: () => {},
                 textButton: 'Entrar',
               ),
-              const AppElevatedButton(
-                color: AppColors.white,
-                textColor: AppColors.black,
-                textButton: 'Cadastrar',
+              const SizedBox(height: 25),
+              AppElevatedButton(
+                type: ButtonType.outlined,
+                onPressed: () => {},
+                textButton: 'Cadastrar-se',
               ),
               const Spacer(flex: 2),
               //gestureDetector adiciona metodos de intecao com usuario ex: onTap
