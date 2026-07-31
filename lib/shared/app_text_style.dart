@@ -12,4 +12,6 @@ class AppTextStyle {
     color: AppColors.white,
     fontWeight: FontWeight.bold,
   );
+
+  static TextStyle recuSenha = const TextStyle(color: AppColors.black);
 }
