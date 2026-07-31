@@ -22,17 +22,15 @@ class LoginPage extends StatelessWidget {
               const Spacer(flex: 2),
               const AppTextField(hintText: 'email@dominio.com'),
               const AppTextField(hintText: '************'),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Esqueci minha senha',
-                      style: AppTextStyle.recuSenha,
-                    ),
+              Align(
+                alignment: Alignment.topRight,
+                child: TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    'Esqueci minha senha',
+                    style: AppTextStyle.recuSenha,
                   ),
-                ],
+                ),
               ),
               const AppElevatedButton(
                 color: AppColors.black,
