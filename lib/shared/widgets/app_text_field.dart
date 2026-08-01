@@ -13,15 +13,15 @@ class AppTextField extends StatelessWidget {
         hintText: hintText,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide: const BorderSide(color: AppColors.gray100),
+          borderSide: const BorderSide(color: AppColors.grey100),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide: const BorderSide(color: AppColors.gray100),
+          borderSide: const BorderSide(color: AppColors.grey100),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide: const BorderSide(color: AppColors.gray100),
+          borderSide: const BorderSide(color: AppColors.grey100),
         ),
       ),
     );

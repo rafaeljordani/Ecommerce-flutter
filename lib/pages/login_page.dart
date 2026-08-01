@@ -1,4 +1,5 @@
 import 'package:ecommerce/pages/signup_page.dart';
+import 'package:ecommerce/shared/app_colors.dart';
 import 'package:ecommerce/shared/app_text_style.dart';
 import 'package:ecommerce/shared/widgets/app_elevated_button.dart';
 import 'package:ecommerce/shared/widgets/app_text_field.dart';
@@ -64,15 +65,15 @@ class LoginPage extends StatelessWidget {
                     children: [
                       TextSpan(
                         text: 'Termos de serviço',
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(color: AppColors.black),
                       ),
                       TextSpan(
                         text: 'e',
-                        style: TextStyle(color: Colors.grey),
+                        style: TextStyle(color: AppColors.grey100),
                       ),
                       TextSpan(
                         text: 'Politicas de Privacidade',
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(color: AppColors.black),
                       ),
                     ],
                   ),
