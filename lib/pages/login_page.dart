@@ -21,6 +21,7 @@ class LoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              Spacer(flex: 1),
               Text('+DevsEcomm', style: AppTextStyle.title),
               const Spacer(flex: 2),
               const AppTextField(hintText: 'email@dominio.com'),
@@ -69,7 +70,7 @@ class LoginPage extends StatelessWidget {
                       ),
                       TextSpan(
                         text: 'e',
-                        style: TextStyle(color: AppColors.grey100),
+                        style: TextStyle(color: AppColors.grey),
                       ),
                       TextSpan(
                         text: 'Politicas de Privacidade',

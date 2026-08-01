@@ -14,4 +14,9 @@ class AppTextStyle {
   );
 
   static TextStyle recuSenha = const TextStyle(color: AppColors.black);
+
+  static TextStyle subTitle = const TextStyle(
+    color: AppColors.black,
+    fontSize: 16,
+  );
 }
