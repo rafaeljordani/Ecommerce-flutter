@@ -7,6 +7,7 @@ class SignupPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(ModalRoute.of(context)!.settings.arguments);
     return Scaffold(
       appBar: AppBar(title: const Text('')),
       body: Container(),

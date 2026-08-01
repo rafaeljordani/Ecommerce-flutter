@@ -44,7 +44,11 @@ class LoginPage extends StatelessWidget {
               AppElevatedButton(
                 type: ButtonType.outlined,
                 onPressed: () => {
-                  Navigator.pushNamed(context, SignupPage.route),
+                  Navigator.pushNamed(
+                    context,
+                    SignupPage.route,
+                    arguments: 'Vim da primeira tela',
+                  ),
                 },
                 textButton: 'Cadastrar-se',
               ),
