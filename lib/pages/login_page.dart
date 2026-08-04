@@ -24,7 +24,6 @@ class LoginPage extends StatelessWidget {
               const Spacer(flex: 1),
               SizedBox(
                 height: 150,
-                width: 150,
                 child: Image.asset('assets/images/splash_screen.png'),
               ),
               Padding(
