@@ -19,4 +19,10 @@ class AppTextStyle {
     color: AppColors.black,
     fontSize: 16,
   );
+
+  static TextStyle titleFirstPage = const TextStyle(
+    color: AppColors.black,
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+  );
 }

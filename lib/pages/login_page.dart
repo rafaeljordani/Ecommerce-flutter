@@ -21,8 +21,19 @@ class LoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Spacer(flex: 1),
-              Text('+DevsEcomm', style: AppTextStyle.title),
+              const Spacer(flex: 1),
+              SizedBox(
+                height: 150,
+                width: 150,
+                child: Image.asset('assets/images/splash_screen.png'),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text('+DevsEcomm', style: AppTextStyle.titleFirstPage),
+                ),
+              ),
               const Spacer(flex: 2),
               const AppTextField(hintText: 'email@dominio.com'),
               const SizedBox(height: 20),

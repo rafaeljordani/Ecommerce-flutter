@@ -47,7 +47,7 @@ class SignupPage extends StatelessWidget {
                       style: TextStyle(color: AppColors.black),
                     ),
                     TextSpan(
-                      text: 'e com',
+                      text: 'e com a ',
                       style: TextStyle(color: AppColors.grey),
                     ),
                     TextSpan(
