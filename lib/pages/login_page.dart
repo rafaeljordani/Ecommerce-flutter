@@ -36,7 +36,7 @@ class LoginPage extends StatelessWidget {
               const Spacer(flex: 2),
               const AppTextField(hintText: 'email@dominio.com'),
               const SizedBox(height: 20),
-              const AppTextField(hintText: '************'),
+              const AppTextField(hintText: '************', obscureText: true),
               Align(
                 alignment: Alignment.topRight,
                 child: TextButton(
