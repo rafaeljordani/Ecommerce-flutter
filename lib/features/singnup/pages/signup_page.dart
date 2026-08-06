@@ -1,3 +1,4 @@
+import 'package:ecommerce/features/singnup/controllers/singn_up_controller.dart';
 import 'package:ecommerce/shared/app_text_style.dart';
 import 'package:ecommerce/shared/widgets/app_check_box.dart';
 import 'package:ecommerce/shared/widgets/app_elevated_button.dart';
@@ -14,13 +15,7 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  bool isActiveButton = false;
-  String email = '';
-  String nome = '';
-  String senha = '';
-  String confirmarSenha = '';
-  bool isActiveChecked = false;
-
+  SingnUpController singnUpController = SingnUpController();
   @override
   void initState() {
     super.initState();
@@ -28,13 +23,6 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   Widget build(BuildContext context) {
-    isActiveButton =
-        email.trim().isNotEmpty &&
-        nome.trim().isNotEmpty &&
-        senha.trim().isNotEmpty &&
-        confirmarSenha.trim().isNotEmpty &&
-        isActiveChecked == true;
-
     print(ModalRoute.of(context)!.settings.arguments);
     return Scaffold(
       body: SafeArea(
@@ -64,7 +52,7 @@ class _SignupPageState extends State<SignupPage> {
                     hintText: 'email@dominio.com',
                     onChanged: (value) {
                       setState(() {
-                        email = value;
+                        singnUpController.setEmail(value);
                       });
                     },
                   ),
@@ -72,7 +60,7 @@ class _SignupPageState extends State<SignupPage> {
                     hintText: 'nome',
                     onChanged: (value) {
                       setState(() {
-                        nome = value;
+                        singnUpController.setNome(value);
                       });
                     },
                   ),
@@ -81,7 +69,7 @@ class _SignupPageState extends State<SignupPage> {
                     obscureText: true,
                     onChanged: (value) {
                       setState(() {
-                        senha = value;
+                        singnUpController.setSenha(value);
                       });
                     },
                   ),
@@ -90,7 +78,7 @@ class _SignupPageState extends State<SignupPage> {
                     obscureText: true,
                     onChanged: (value) {
                       setState(() {
-                        confirmarSenha = value;
+                        singnUpController.setConfirmaSenha(value);
                       });
                     },
                   ),
@@ -99,10 +87,10 @@ class _SignupPageState extends State<SignupPage> {
                   Row(
                     children: [
                       AppCheckbox(
-                        isActiveChecked,
+                        singnUpController.isActiveChecked,
                         onChanged: (value) {
                           setState(() {
-                            isActiveChecked = !isActiveChecked;
+                            singnUpController.changeActiveCheckBox();
                           });
                         },
                       ),
@@ -135,7 +123,7 @@ class _SignupPageState extends State<SignupPage> {
                   AppElevatedButton(
                     type: ButtonType.filled,
                     textButton: 'Continuar ',
-                    onPressed: isActiveButton
+                    onPressed: singnUpController.isActiveButton
                         ? () {
                             print('cliquei em continuar');
                           }

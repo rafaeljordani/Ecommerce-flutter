@@ -1,4 +1,5 @@
-import 'package:ecommerce/pages/signup_page.dart';
+import 'package:ecommerce/features/login/controllers/login_controller.dart';
+import 'package:ecommerce/features/singnup/pages/signup_page.dart';
 import 'package:ecommerce/shared/app_colors.dart';
 import 'package:ecommerce/shared/app_text_style.dart';
 import 'package:ecommerce/shared/widgets/app_check_box.dart';
@@ -16,10 +17,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String email = '';
-  String senha = '';
-  bool isActiveButton = false;
-  bool isActiveChecked = false;
+  LoginController loginController = LoginController();
   @override
   void initState() {
     super.initState();
@@ -27,7 +25,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    isActiveButton = email.trim().isNotEmpty && senha.trim().isNotEmpty;
     return Scaffold(
       //Safeare desconta espaços do dispositivo ex:barra superior
       body: SafeArea(
@@ -63,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
                     hintText: 'email@dominio.com',
                     onChanged: (value) {
                       setState(() {
-                        email = value;
+                        loginController.setEmail(value);
                       });
                     },
                   ),
@@ -73,17 +70,17 @@ class _LoginPageState extends State<LoginPage> {
                     obscureText: true,
                     onChanged: (value) {
                       setState(() {
-                        senha = value;
+                        loginController.setSenha(value);
                       });
                     },
                   ),
                   Row(
                     children: [
                       AppCheckbox(
-                        isActiveChecked,
+                        loginController.isActiveChecked,
                         onChanged: (value) {
                           setState(() {
-                            isActiveChecked = !isActiveChecked;
+                            loginController.changeActiveCheckBox();
                           });
                         },
                       ),
@@ -102,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   AppElevatedButton(
                     type: ButtonType.filled,
-                    onPressed: isActiveButton
+                    onPressed: loginController.isActiveButton
                         ? () {
                             print('Cliquei em entrar');
                           }
