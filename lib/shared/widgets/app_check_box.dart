@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 
-class AppCheckBox extends StatelessWidget {
-  const AppCheckBox(this.isActiveCheackBox, {super.key});
+class AppCheckbox extends StatelessWidget {
+  const AppCheckbox(this.isActiveChecked, {super.key, this.onChanged});
 
-  final bool isActiveCheackBox;
+  final bool isActiveChecked;
+  final Function(bool?)? onChanged;
 
   @override
   Widget build(BuildContext context) {
-    return Checkbox(
-      value: isActiveCheackBox,
-      onChanged: (value) {
-        isActiveCheackBox = value!;
-      },
-    );
+    return Checkbox(value: isActiveChecked, onChanged: onChanged);
   }
 }

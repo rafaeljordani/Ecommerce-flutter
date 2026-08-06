@@ -25,4 +25,16 @@ class AppTextStyle {
     fontSize: 20,
     fontWeight: FontWeight.bold,
   );
+
+  static TextStyle texSpanBlack = const TextStyle(
+    color: AppColors.black,
+    fontSize: 12,
+    fontWeight: FontWeight.bold,
+  );
+
+  static TextStyle texSpanGrey = const TextStyle(
+    color: AppColors.grey,
+    fontSize: 12,
+    fontWeight: FontWeight.bold,
+  );
 }

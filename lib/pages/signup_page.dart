@@ -1,5 +1,6 @@
 import 'package:ecommerce/shared/app_colors.dart';
 import 'package:ecommerce/shared/app_text_style.dart';
+import 'package:ecommerce/shared/widgets/app_check_box.dart';
 import 'package:ecommerce/shared/widgets/app_elevated_button.dart';
 import 'package:ecommerce/shared/widgets/app_text_field.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class _SignupPageState extends State<SignupPage> {
   String nome = '';
   String senha = '';
   String confirmarSenha = '';
+  bool isActiveChecked = false;
 
   @override
   void initState() {
@@ -31,7 +33,9 @@ class _SignupPageState extends State<SignupPage> {
         email.trim().isNotEmpty &&
         nome.trim().isNotEmpty &&
         senha.trim().isNotEmpty &&
-        confirmarSenha.trim().isNotEmpty;
+        confirmarSenha.trim().isNotEmpty &&
+        isActiveChecked == true;
+
     print(ModalRoute.of(context)!.settings.arguments);
     return Scaffold(
       body: SafeArea(
@@ -84,29 +88,42 @@ class _SignupPageState extends State<SignupPage> {
                 },
               ),
               const Spacer(flex: 2),
-              RichText(
-                textAlign: TextAlign.center,
-                text: const TextSpan(
-                  children: [
-                    TextSpan(
-                      text:
-                          'Ao clicar em continuar, você concorda com os nossos \n',
-                      style: TextStyle(color: AppColors.grey),
+
+              Row(
+                children: [
+                  AppCheckbox(
+                    isActiveChecked,
+                    onChanged: (value) {
+                      setState(() {
+                        isActiveChecked = !isActiveChecked;
+                      });
+                    },
+                  ),
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text:
+                              'Ao clicar em continuar, você concorda com os nossos \n',
+                          style: AppTextStyle.texSpanGrey,
+                        ),
+                        TextSpan(
+                          text: 'Termos de Serviço',
+                          style: AppTextStyle.texSpanBlack,
+                        ),
+                        TextSpan(
+                          text: 'e com a ',
+                          style: AppTextStyle.texSpanGrey,
+                        ),
+                        TextSpan(
+                          text: 'Política de Privacidade',
+                          style: AppTextStyle.texSpanBlack,
+                        ),
+                      ],
                     ),
-                    TextSpan(
-                      text: 'Termos de Serviço',
-                      style: TextStyle(color: AppColors.black),
-                    ),
-                    TextSpan(
-                      text: 'e com a ',
-                      style: TextStyle(color: AppColors.grey),
-                    ),
-                    TextSpan(
-                      text: 'Política de Privacidade',
-                      style: TextStyle(color: AppColors.black),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               AppElevatedButton(
                 type: ButtonType.filled,
