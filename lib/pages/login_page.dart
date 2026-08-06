@@ -1,17 +1,32 @@
 import 'package:ecommerce/pages/signup_page.dart';
 import 'package:ecommerce/shared/app_colors.dart';
 import 'package:ecommerce/shared/app_text_style.dart';
+import 'package:ecommerce/shared/widgets/app_check_box.dart';
 import 'package:ecommerce/shared/widgets/app_elevated_button.dart';
 import 'package:ecommerce/shared/widgets/app_text_field.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   static String route = '/login';
 
   @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  String email = '';
+  String senha = '';
+  bool isActiveButton = false;
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    isActiveButton = email.trim().isNotEmpty && senha.trim().isNotEmpty;
     return Scaffold(
       //Safeare desconta espaços do dispositivo ex:barra superior
       body: SafeArea(
@@ -34,9 +49,25 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               const Spacer(flex: 2),
-              const AppTextField(hintText: 'email@dominio.com'),
+              AppTextField(
+                hintText: 'email@dominio.com',
+                onChanged: (value) {
+                  setState(() {
+                    email = value;
+                  });
+                },
+              ),
               const SizedBox(height: 20),
-              const AppTextField(hintText: '************', obscureText: true),
+              AppTextField(
+                hintText: '************',
+                obscureText: true,
+                onChanged: (value) {
+                  setState(() {
+                    senha = value;
+                  });
+                },
+              ),
+              Row(children: [AppCheckBox(), const Text('Lembrar-me')]),
               Align(
                 alignment: Alignment.topRight,
                 child: TextButton(
@@ -49,7 +80,11 @@ class LoginPage extends StatelessWidget {
               ),
               AppElevatedButton(
                 type: ButtonType.filled,
-                onPressed: () => {},
+                onPressed: isActiveButton
+                    ? () {
+                        print('Cliquei em entrar');
+                      }
+                    : null,
                 textButton: 'Entrar',
               ),
               const SizedBox(height: 25),

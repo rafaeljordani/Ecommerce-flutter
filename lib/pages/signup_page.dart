@@ -4,13 +4,34 @@ import 'package:ecommerce/shared/widgets/app_elevated_button.dart';
 import 'package:ecommerce/shared/widgets/app_text_field.dart';
 import 'package:flutter/material.dart';
 
-class SignupPage extends StatelessWidget {
+class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
 
   static String route = '/signup';
 
   @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
+  bool isActiveButton = false;
+  String email = '';
+  String nome = '';
+  String senha = '';
+  String confirmarSenha = '';
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    isActiveButton =
+        email.trim().isNotEmpty &&
+        nome.trim().isNotEmpty &&
+        senha.trim().isNotEmpty &&
+        confirmarSenha.trim().isNotEmpty;
     print(ModalRoute.of(context)!.settings.arguments);
     return Scaffold(
       body: SafeArea(
@@ -28,10 +49,40 @@ class SignupPage extends StatelessWidget {
                   style: AppTextStyle.subTitle,
                 ),
               ),
-              const AppTextField(hintText: 'email@dominio.com'),
-              const AppTextField(hintText: 'nome'),
-              const AppTextField(hintText: 'senha'),
-              const AppTextField(hintText: 'confirmar senha '),
+              AppTextField(
+                hintText: 'email@dominio.com',
+                onChanged: (value) {
+                  setState(() {
+                    email = value;
+                  });
+                },
+              ),
+              AppTextField(
+                hintText: 'nome',
+                onChanged: (value) {
+                  setState(() {
+                    nome = value;
+                  });
+                },
+              ),
+              AppTextField(
+                hintText: 'senha',
+                obscureText: true,
+                onChanged: (value) {
+                  setState(() {
+                    senha = value;
+                  });
+                },
+              ),
+              AppTextField(
+                hintText: 'confirmar senha ',
+                obscureText: true,
+                onChanged: (value) {
+                  setState(() {
+                    confirmarSenha = value;
+                  });
+                },
+              ),
               const Spacer(flex: 2),
               RichText(
                 textAlign: TextAlign.center,
@@ -60,7 +111,11 @@ class SignupPage extends StatelessWidget {
               AppElevatedButton(
                 type: ButtonType.filled,
                 textButton: 'Continuar ',
-                onPressed: () => {},
+                onPressed: isActiveButton
+                    ? () {
+                        print('cliquei em continuar');
+                      }
+                    : null,
               ),
             ],
           ),
