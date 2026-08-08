@@ -49,6 +49,7 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                   ),
                   AppTextField(
+                    errorText: singnUpController.emailError,
                     hintText: 'email@dominio.com',
                     onChanged: (value) {
                       setState(() {
@@ -57,6 +58,7 @@ class _SignupPageState extends State<SignupPage> {
                     },
                   ),
                   AppTextField(
+                    errorText: singnUpController.nomeError,
                     hintText: 'nome',
                     onChanged: (value) {
                       setState(() {
@@ -65,6 +67,7 @@ class _SignupPageState extends State<SignupPage> {
                     },
                   ),
                   AppTextField(
+                    errorText: singnUpController.senhaError,
                     hintText: 'senha',
                     obscureText: true,
                     onChanged: (value) {
@@ -74,6 +77,7 @@ class _SignupPageState extends State<SignupPage> {
                     },
                   ),
                   AppTextField(
+                    errorText: singnUpController.confirmarSenhaError,
                     hintText: 'confirmar senha ',
                     obscureText: true,
                     onChanged: (value) {
