@@ -11,32 +11,42 @@ class SingnUpController {
   final RegExp _nameRegex = RegExp(
     r"^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:[ '-][A-Za-zÀ-ÖØ-öø-ÿ]+)*$",
   );
+  final RegExp _senhaCaracterExpecial = RegExp(r'[!@#$%^&*(),.?":{}|<>]');
+  final RegExp _senhaCaracterMauscula = RegExp(r'[A-Z]');
+  final RegExp _senhaCaracterMinuscula = RegExp(r'[a-z]');
 
   bool get isEmailValid => _emailRegex.hasMatch(email.trim());
-  bool get isSenhaValida => senha.trim().length > caracterMinimo;
+  bool get isSenhaEspecial => senha.contains(_senhaCaracterExpecial);
+  bool get isSenhaCaracterMaiuscula => senha.contains(_senhaCaracterMauscula);
+  bool get isSenhaCaracterMinuscula => senha.contains(_senhaCaracterMinuscula);
+  bool get isSenhaCaracterMinimo => senha.trim().length > caracterMinimo;
   bool get isNomeValido => _nameRegex.hasMatch(nome.trim());
-  bool get isConfirmarSenhaValida =>
-      confirmarSenha.trim().length > caracterMinimo;
+
+  bool get isConfirmarSenhaValida {
+    if (confirmarSenha.isEmpty) {
+      return false;
+    } else if (confirmarSenha == senha) {
+      return true;
+    }
+    return false;
+  }
+
+  bool get senhaValida {
+    if ((isSenhaEspecial) &&
+        (isSenhaCaracterMaiuscula) &&
+        (isSenhaCaracterMinimo) &&
+        (isSenhaCaracterMinuscula) &&
+        (isConfirmarSenhaValida)) {
+      return true;
+    }
+    return false;
+  }
 
   String? get emailError {
-    if ((email.trim().isEmpty) || (isEmailValid)) {
+    if (isEmailValid) {
       return null;
     }
-    return 'Email inválido';
-  }
-
-  String? get senhaError {
-    if ((senha.trim().isEmpty) || (isSenhaValida)) {
-      return null;
-    }
-    return 'Senha invalida';
-  }
-
-  String? get confirmarSenhaError {
-    if ((confirmarSenha.trim().isEmpty) || (isConfirmarSenhaValida)) {
-      return null;
-    }
-    return 'Senha invalida';
+    return 'Email invalido';
   }
 
   String? get nomeError {
@@ -53,11 +63,7 @@ class SingnUpController {
 
   void changeActiveButton() {
     isActiveButton =
-        isEmailValid &&
-        isNomeValido &&
-        isSenhaValida &&
-        isConfirmarSenhaValida &&
-        isActiveChecked;
+        isEmailValid && isNomeValido && senhaValida && isActiveChecked;
   }
 
   void setEmail(String emailParam) {

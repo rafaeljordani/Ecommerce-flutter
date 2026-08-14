@@ -3,6 +3,7 @@ import 'package:ecommerce/shared/app_text_style.dart';
 import 'package:ecommerce/shared/widgets/app_check_box.dart';
 import 'package:ecommerce/shared/widgets/app_elevated_button.dart';
 import 'package:ecommerce/shared/widgets/app_text_field.dart';
+import 'package:ecommerce/shared/widgets/password_requirement.dart';
 import 'package:flutter/material.dart';
 
 class SignupPage extends StatefulWidget {
@@ -67,7 +68,6 @@ class _SignupPageState extends State<SignupPage> {
                     },
                   ),
                   AppTextField(
-                    errorText: singnUpController.senhaError,
                     hintText: 'senha',
                     obscureText: true,
                     onChanged: (value) {
@@ -77,7 +77,6 @@ class _SignupPageState extends State<SignupPage> {
                     },
                   ),
                   AppTextField(
-                    errorText: singnUpController.confirmarSenhaError,
                     hintText: 'confirmar senha ',
                     obscureText: true,
                     onChanged: (value) {
@@ -85,6 +84,31 @@ class _SignupPageState extends State<SignupPage> {
                         singnUpController.setConfirmaSenha(value);
                       });
                     },
+                  ),
+                  Column(
+                    spacing: 5,
+                    children: [
+                      PasswordRequirement(
+                        text: 'Mínimo de 6 caracteres',
+                        isValid: singnUpController.isSenhaCaracterMinimo,
+                      ),
+                      PasswordRequirement(
+                        text: 'No mínimo um caracter especial',
+                        isValid: singnUpController.isSenhaEspecial,
+                      ),
+                      PasswordRequirement(
+                        text: 'No mínimo uma letra maiúscula',
+                        isValid: singnUpController.isSenhaCaracterMaiuscula,
+                      ),
+                      PasswordRequirement(
+                        text: 'No mínimo uma letra minúscula',
+                        isValid: singnUpController.isSenhaCaracterMinuscula,
+                      ),
+                      PasswordRequirement(
+                        text: 'As senhas coincidem',
+                        isValid: singnUpController.isConfirmarSenhaValida,
+                      ),
+                    ],
                   ),
                   const Spacer(flex: 2),
 
