@@ -1,3 +1,5 @@
+import 'package:ecommerce/shared/app_colors.dart';
+import 'package:ecommerce/shared/app_text_style.dart';
 import 'package:flutter/material.dart';
 
 class AppPasswordRequirement extends StatelessWidget {
@@ -16,13 +18,15 @@ class AppPasswordRequirement extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       spacing: 5,
       children: [
-        Icon(Icons.check_circle, color: isValid ? Colors.green : Colors.black),
+        Icon(
+          Icons.check_circle,
+          color: isValid ? AppColors.green : AppColors.black,
+        ),
         Text(
           text,
-          style: TextStyle(
-            color: isValid ? Colors.green : Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
+          style: isValid
+              ? AppTextStyle.textPasswordValionCheackGreen
+              : AppTextStyle.textPasswordValionCheackBlack,
         ),
       ],
     );
