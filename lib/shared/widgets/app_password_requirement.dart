@@ -20,7 +20,7 @@ class AppPasswordRequirement extends StatelessWidget {
       children: [
         Icon(
           Icons.check_circle,
-          color: isValid ? AppColors.green : AppColors.black,
+          color: isValid ? AppColors.green : AppColors.grey,
         ),
         Text(
           text,
