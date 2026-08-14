@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class PasswordRequirement extends StatelessWidget {
-  const PasswordRequirement({
+class AppPasswordRequirement extends StatelessWidget {
+  const AppPasswordRequirement({
     super.key,
     required this.text,
     required this.isValid,
