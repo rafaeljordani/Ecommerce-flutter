@@ -26,7 +26,7 @@ class AppPasswordRequirement extends StatelessWidget {
           text,
           style: isValid
               ? AppTextStyle.textPasswordValionCheackGreen
-              : AppTextStyle.textPasswordValionCheackBlack,
+              : AppTextStyle.textPasswordValionCheackGrey,
         ),
       ],
     );
