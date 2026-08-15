@@ -10,11 +10,13 @@ class AppElevatedButton extends StatelessWidget {
     required this.type,
     required this.textButton,
     this.onPressed,
+    this.isLoad = false,
   });
 
   final ButtonType type;
   final String textButton;
   final VoidCallback? onPressed;
+  final bool isLoad;
 
   ButtonStyle _getButtonStyle() {
     switch (type) {
@@ -48,7 +50,16 @@ class AppElevatedButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: _getButtonStyle(),
-      child: Text(textButton),
+      child: isLoad
+          ? const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: SizedBox(
+                height: 20,
+                width: 20,
+                child: CircularProgressIndicator(color: AppColors.white),
+              ),
+            )
+          : Text(textButton),
     );
   }
 }
