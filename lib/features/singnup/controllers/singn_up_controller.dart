@@ -5,6 +5,7 @@ class SingnUpController {
   String nome = '';
   String senha = '';
   String confirmarSenha = '';
+  bool isLoding = false;
 
   final RegExp _emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
   final int caracterMinimo = 6;
@@ -95,5 +96,10 @@ class SingnUpController {
   void setConfirmaSenha(String confirmarSenhaParam) {
     confirmarSenha = confirmarSenhaParam;
     changeActiveButton();
+  }
+
+  Future<void> login() async {
+    //simula o delayed de uma chamada de API
+    await Future.delayed(const Duration(seconds: 2));
   }
 }

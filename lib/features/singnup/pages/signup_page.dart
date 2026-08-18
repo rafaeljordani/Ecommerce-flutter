@@ -22,6 +22,16 @@ class _SignupPageState extends State<SignupPage> {
     super.initState();
   }
 
+  Future<void> login() async {
+    setState(() {
+      singnUpController.isLoding = true;
+    });
+    await singnUpController.login();
+    setState(() {
+      singnUpController.isLoding = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     print(ModalRoute.of(context)!.settings.arguments);
@@ -159,10 +169,9 @@ class _SignupPageState extends State<SignupPage> {
                     type: ButtonType.filled,
                     textButton: 'Continuar ',
                     onPressed: singnUpController.isActiveButton
-                        ? () {
-                            print('cliquei em continuar');
-                          }
+                        ? () => login()
                         : null,
+                    isLoad: singnUpController.isLoding,
                   ),
                 ],
               ),
