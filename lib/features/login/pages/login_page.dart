@@ -1,4 +1,5 @@
 import 'package:ecommerce/features/login/controllers/login_controller.dart';
+import 'package:ecommerce/features/recover/pages/recover_page.dart';
 import 'package:ecommerce/features/singnup/pages/signup_page.dart';
 import 'package:ecommerce/shared/app_colors.dart';
 import 'package:ecommerce/shared/app_text_style.dart';
@@ -21,6 +22,16 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+  }
+
+  Future<void> login() async {
+    setState(() {
+      loginController.isLoding = true;
+    });
+    await loginController.login();
+    setState(() {
+      loginController.isLoding = false;
+    });
   }
 
   @override
@@ -92,7 +103,9 @@ class _LoginPageState extends State<LoginPage> {
                   Align(
                     alignment: Alignment.topRight,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, RecoverPage.route);
+                      },
                       child: Text(
                         'Esqueci minha senha',
                         style: AppTextStyle.recuSenha,
@@ -102,11 +115,10 @@ class _LoginPageState extends State<LoginPage> {
                   AppElevatedButton(
                     type: ButtonType.filled,
                     onPressed: loginController.isActiveButton
-                        ? () {
-                            print('Cliquei em entrar');
-                          }
+                        ? () => login()
                         : null,
                     textButton: 'Entrar',
+                    isLoad: loginController.isLoding,
                   ),
                   const SizedBox(height: 25),
                   AppElevatedButton(

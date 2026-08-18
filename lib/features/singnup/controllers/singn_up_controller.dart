@@ -22,6 +22,17 @@ class SingnUpController {
   bool get isSenhaCaracterMinimo => senha.trim().length > caracterMinimo;
   bool get isNomeValido => _nameRegex.hasMatch(nome.trim());
 
+  // FORMA DIFERETE DE FAZER
+  // List<Map<String, bool>> getPasswordRequirements() {
+  //   return [
+  //     {'Mínimo de 6 caracteres': isSenhaCaracterMinimo},
+  //     {'No mínimo um caracter especial': isSenhaEspecial},
+  //     {'No mínimo uma letra maiúscula': isSenhaCaracterMaiuscula},
+  //     {'No mínimo uma letra minúscula': isSenhaCaracterMinuscula},
+  //     {'As senhas coincidem': isConfirmarSenhaValida},
+  //   ];
+  // }
+
   bool get isConfirmarSenhaValida {
     if (confirmarSenha.isEmpty) {
       return false;
@@ -43,7 +54,7 @@ class SingnUpController {
   }
 
   String? get emailError {
-    if (isEmailValid) {
+    if (email.trim().isEmpty || isEmailValid) {
       return null;
     }
     return 'Email invalido';

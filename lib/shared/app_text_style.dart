@@ -37,4 +37,12 @@ class AppTextStyle {
     fontSize: 12,
     fontWeight: FontWeight.bold,
   );
+  static TextStyle textPasswordValionCheackGrey = const TextStyle(
+    color: AppColors.grey,
+    fontWeight: FontWeight.bold,
+  );
+  static TextStyle textPasswordValionCheackGreen = const TextStyle(
+    color: AppColors.green,
+    fontWeight: FontWeight.bold,
+  );
 }

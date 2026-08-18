@@ -3,7 +3,7 @@ import 'package:ecommerce/shared/app_text_style.dart';
 import 'package:ecommerce/shared/widgets/app_check_box.dart';
 import 'package:ecommerce/shared/widgets/app_elevated_button.dart';
 import 'package:ecommerce/shared/widgets/app_text_field.dart';
-import 'package:ecommerce/shared/widgets/password_requirement.dart';
+import 'package:ecommerce/shared/widgets/app_password_requirement.dart';
 import 'package:flutter/material.dart';
 
 class SignupPage extends StatefulWidget {
@@ -85,26 +85,33 @@ class _SignupPageState extends State<SignupPage> {
                       });
                     },
                   ),
+                  // FORMA DIFERETE DE FAZER
+                  // for (var requirement
+                  //     in singnUpController.getPasswordRequirements())
+                  //   AppPasswordRequirement(
+                  //     text: requirement.keys.first,
+                  //     isValid: requirement.values.first,
+                  //   ),
                   Column(
                     spacing: 5,
                     children: [
-                      PasswordRequirement(
+                      AppPasswordRequirement(
                         text: 'Mínimo de 6 caracteres',
                         isValid: singnUpController.isSenhaCaracterMinimo,
                       ),
-                      PasswordRequirement(
+                      AppPasswordRequirement(
                         text: 'No mínimo um caracter especial',
                         isValid: singnUpController.isSenhaEspecial,
                       ),
-                      PasswordRequirement(
+                      AppPasswordRequirement(
                         text: 'No mínimo uma letra maiúscula',
                         isValid: singnUpController.isSenhaCaracterMaiuscula,
                       ),
-                      PasswordRequirement(
+                      AppPasswordRequirement(
                         text: 'No mínimo uma letra minúscula',
                         isValid: singnUpController.isSenhaCaracterMinuscula,
                       ),
-                      PasswordRequirement(
+                      AppPasswordRequirement(
                         text: 'As senhas coincidem',
                         isValid: singnUpController.isConfirmarSenhaValida,
                       ),
