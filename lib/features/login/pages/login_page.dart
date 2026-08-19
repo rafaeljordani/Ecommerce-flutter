@@ -19,15 +19,20 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   LoginController loginController = LoginController();
+
+  final GlobalKey<FormState> key = GlobalKey<FormState>();
+
   @override
   void initState() {
     super.initState();
   }
 
-  Future<void> login() async {
-    setState(() {
-      loginController.isLoding = true;
-    });
+  Future<void> _login() async {
+    if (key.currentState!.validate()) {
+      setState(() {
+        loginController.isLoding = true;
+      });
+    }
     await loginController.login();
     setState(() {
       loginController.isLoding = false;
@@ -40,126 +45,131 @@ class _LoginPageState extends State<LoginPage> {
       //Safeare desconta espaços do dispositivo ex:barra superior
       body: SafeArea(
         child: SingleChildScrollView(
-          child: SizedBox(
-            height:
-                MediaQuery.of(context).size.height -
-                MediaQuery.of(context).padding.top -
-                MediaQuery.of(context).padding.bottom,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Spacer(flex: 1),
-                  SizedBox(
-                    height: 150,
-                    child: Image.asset('assets/images/splash_screen.png'),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        '+DevsEcomm',
-                        style: AppTextStyle.titleFirstPage,
+          child: Form(
+            key: key,
+            child: SizedBox(
+              height:
+                  MediaQuery.of(context).size.height -
+                  MediaQuery.of(context).padding.top -
+                  MediaQuery.of(context).padding.bottom,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Spacer(flex: 1),
+                    SizedBox(
+                      height: 150,
+                      child: Image.asset('assets/images/splash_screen.png'),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          '+DevsEcomm',
+                          style: AppTextStyle.titleFirstPage,
+                        ),
                       ),
                     ),
-                  ),
-                  const Spacer(flex: 2),
-                  AppTextField(
-                    errorText: loginController.emailError,
-                    hintText: 'email@dominio.com',
-                    onChanged: (value) {
-                      setState(() {
-                        loginController.setEmail(value);
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  AppTextField(
-                    errorText: loginController.senhaError,
-                    hintText: '************',
-                    obscureText: true,
-                    onChanged: (value) {
-                      setState(() {
-                        loginController.setSenha(value);
-                      });
-                    },
-                  ),
-                  Row(
-                    children: [
-                      AppCheckbox(
-                        loginController.isActiveChecked,
-                        onChanged: (value) {
-                          setState(() {
-                            loginController.changeActiveCheckBox();
-                          });
-                        },
-                      ),
-                      const Text('Lembrar-me'),
-                    ],
-                  ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, RecoverPage.route);
+                    const Spacer(flex: 2),
+                    AppTextField(
+                      validator: (value) {
+                        return loginController.validaeEmail(value);
                       },
-                      child: Text(
-                        'Esqueci minha senha',
-                        style: AppTextStyle.recuSenha,
+                      hintText: 'email@dominio.com',
+                      onChanged: (value) {
+                        setState(() {
+                          loginController.setEmail(value);
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    AppTextField(
+                      validator: (value) {
+                        return loginController.validateSenha(value);
+                      },
+                      hintText: '************',
+                      obscureText: true,
+                      onChanged: (value) {
+                        setState(() {
+                          loginController.setSenha(value);
+                        });
+                      },
+                    ),
+                    Row(
+                      children: [
+                        AppCheckbox(
+                          loginController.isActiveChecked,
+                          onChanged: (value) {
+                            setState(() {});
+                          },
+                        ),
+                        const Text('Lembrar-me'),
+                      ],
+                    ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, RecoverPage.route);
+                        },
+                        child: Text(
+                          'Esqueci minha senha',
+                          style: AppTextStyle.recuSenha,
+                        ),
                       ),
                     ),
-                  ),
-                  AppElevatedButton(
-                    type: ButtonType.filled,
-                    onPressed: loginController.isActiveButton
-                        ? () => login()
-                        : null,
-                    textButton: 'Entrar',
-                    isLoad: loginController.isLoding,
-                  ),
-                  const SizedBox(height: 25),
-                  AppElevatedButton(
-                    type: ButtonType.outlined,
-                    onPressed: () => {
-                      Navigator.pushNamed(
-                        context,
-                        SignupPage.route,
-                        arguments: 'Vim da primeira tela',
-                      ),
-                    },
-                    textButton: 'Cadastrar-se',
-                  ),
-                  const Spacer(flex: 2),
-                  //gestureDetector adiciona metodos de intecao com usuario ex: onTap
-                  GestureDetector(
-                    onTap: () {
-                      print('cliquei');
-                    },
-                    child: RichText(
-                      textAlign: TextAlign.center,
-                      text: const TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Termos de serviço',
-                            style: TextStyle(color: AppColors.black),
-                          ),
-                          TextSpan(
-                            text: 'e',
-                            style: TextStyle(color: AppColors.grey),
-                          ),
-                          TextSpan(
-                            text: 'Politicas de Privacidade',
-                            style: TextStyle(color: AppColors.black),
-                          ),
-                        ],
+                    AppElevatedButton(
+                      type: ButtonType.filled,
+                      onPressed: () {
+                        _login();
+                      },
+                      textButton: 'Entrar',
+                      isLoad: loginController.isLoding,
+                    ),
+                    const SizedBox(height: 25),
+                    AppElevatedButton(
+                      type: ButtonType.outlined,
+                      onPressed: () => {
+                        Navigator.pushNamed(
+                          context,
+                          SignupPage.route,
+                          arguments: 'Vim da primeira tela',
+                        ),
+                      },
+                      textButton: 'Cadastrar-se',
+                    ),
+                    const Spacer(flex: 2),
+                    //gestureDetector adiciona metodos de intecao com usuario ex: onTap
+                    GestureDetector(
+                      onTap: () {
+                        print('cliquei');
+                      },
+                      child: RichText(
+                        textAlign: TextAlign.center,
+                        text: const TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Termos de serviço',
+                              style: TextStyle(color: AppColors.black),
+                            ),
+                            TextSpan(
+                              text: 'e',
+                              style: TextStyle(color: AppColors.grey),
+                            ),
+                            TextSpan(
+                              text: 'Politicas de Privacidade',
+                              style: TextStyle(color: AppColors.black),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  const Spacer(),
-                ],
+                    const Spacer(),
+                  ],
+                ),
               ),
             ),
           ),

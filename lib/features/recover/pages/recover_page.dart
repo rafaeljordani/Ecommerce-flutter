@@ -36,7 +36,7 @@ class _RecoverPageState extends State<RecoverPage> {
                   Text('Recuperar senha', style: AppTextStyle.title),
                   AppTextField(
                     hintText: 'email@dominio.com',
-                    errorText: recoverController.emailError,
+
                     onChanged: (value) {
                       setState(() {
                         recoverController.setEmail(value);

@@ -22,40 +22,30 @@ class LoginController {
   bool get isSenhaCaracterMinuscula => senha.contains(_senhaCaracterMinuscula);
   bool get isSenhaCaracterMinimo => senha.trim().length > caracterMinimo;
 
-  String? get emailError {
-    if ((email.trim().isEmpty) || (isEmailValid)) {
-      return null;
-    }
-    return 'Email inválido';
-  }
-
-  String? get senhaError {
-    if ((senha.trim().isEmpty) || (isSenhaValida)) {
-      return null;
-    }
-    return 'Senha invalida';
-  }
-
   void setSenha(String senhaParan) {
     senha = senhaParan;
-    changeActiveButton();
   }
 
   void setEmail(String emailParan) {
     email = emailParan;
-    changeActiveButton();
-  }
-
-  void changeActiveButton() {
-    isActiveButton = isEmailValid && isSenhaValida;
-  }
-
-  void changeActiveCheckBox() {
-    isActiveChecked = !isActiveChecked;
   }
 
   Future<void> login() async {
     //simula o delayed de uma chamada de API
     await Future.delayed(const Duration(seconds: 2));
+  }
+
+  String? validaeEmail(String? value) {
+    if (isEmailValid) {
+      return null;
+    }
+    return 'Email inválido';
+  }
+
+  String? validateSenha(String? value) {
+    if (isSenhaValida) {
+      return null;
+    }
+    return 'Senha invalida';
   }
 }

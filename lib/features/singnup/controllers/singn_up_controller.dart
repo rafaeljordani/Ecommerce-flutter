@@ -54,52 +54,42 @@ class SingnUpController {
     return false;
   }
 
-  String? get emailError {
-    if (email.trim().isEmpty || isEmailValid) {
-      return null;
-    }
-    return 'Email invalido';
-  }
-
-  String? get nomeError {
-    if ((nome.trim().isEmpty) || (isNomeValido)) {
-      return null;
-    }
-    return 'Nome invalido';
-  }
-
   void changeActiveCheckBox() {
     isActiveChecked = !isActiveChecked;
-    changeActiveButton();
-  }
-
-  void changeActiveButton() {
-    isActiveButton =
-        isEmailValid && isNomeValido && senhaValida && isActiveChecked;
   }
 
   void setEmail(String emailParam) {
     email = emailParam;
-    changeActiveButton();
   }
 
   void setNome(String nomeParam) {
     nome = nomeParam;
-    changeActiveButton();
   }
 
   void setSenha(String senhaParam) {
     senha = senhaParam;
-    changeActiveButton();
   }
 
   void setConfirmaSenha(String confirmarSenhaParam) {
     confirmarSenha = confirmarSenhaParam;
-    changeActiveButton();
   }
 
   Future<void> login() async {
     //simula o delayed de uma chamada de API
     await Future.delayed(const Duration(seconds: 2));
+  }
+
+  String? validaeEmail(String? value) {
+    if (isEmailValid) {
+      return null;
+    }
+    return 'Email inválido';
+  }
+
+  String? validateNome(String? value) {
+    if (isNomeValido) {
+      return null;
+    }
+    return 'Senha invalida';
   }
 }
