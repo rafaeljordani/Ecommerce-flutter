@@ -1,27 +1,25 @@
+import 'package:flutter/material.dart';
+
 class SingnUpController {
   bool isActiveChecked = false;
-  bool isActiveButton = false;
-  String email = '';
-  String nome = '';
+  bool? checkBoxErrorValue;
+
   String senha = '';
   String confirmarSenha = '';
   bool isLoding = false;
 
-  final RegExp _emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-  final int caracterMinimo = 6;
-  final RegExp _nameRegex = RegExp(
-    r"^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:[ '-][A-Za-zÀ-ÖØ-öø-ÿ]+)*$",
-  );
+  final int _caracterMinimo = 6;
   final RegExp _senhaCaracterExpecial = RegExp(r'[!@#$%^&*(),.?":{}|<>]');
   final RegExp _senhaCaracterMauscula = RegExp(r'[A-Z]');
   final RegExp _senhaCaracterMinuscula = RegExp(r'[a-z]');
 
-  bool get isEmailValid => _emailRegex.hasMatch(email.trim());
   bool get isSenhaEspecial => senha.contains(_senhaCaracterExpecial);
   bool get isSenhaCaracterMaiuscula => senha.contains(_senhaCaracterMauscula);
   bool get isSenhaCaracterMinuscula => senha.contains(_senhaCaracterMinuscula);
-  bool get isSenhaCaracterMinimo => senha.trim().length > caracterMinimo;
-  bool get isNomeValido => _nameRegex.hasMatch(nome.trim());
+  bool get isSenhaCaracterMinimo => senha.trim().length > _caracterMinimo;
+
+  TextEditingController emailControler = TextEditingController();
+  TextEditingController nomeControler = TextEditingController();
 
   // FORMA DIFERETE DE FAZER
   // List<Map<String, bool>> getPasswordRequirements() {
@@ -47,8 +45,7 @@ class SingnUpController {
     if ((isSenhaEspecial) &&
         (isSenhaCaracterMaiuscula) &&
         (isSenhaCaracterMinimo) &&
-        (isSenhaCaracterMinuscula) &&
-        (isConfirmarSenhaValida)) {
+        (isSenhaCaracterMinuscula)) {
       return true;
     }
     return false;
@@ -56,14 +53,7 @@ class SingnUpController {
 
   void changeActiveCheckBox() {
     isActiveChecked = !isActiveChecked;
-  }
-
-  void setEmail(String emailParam) {
-    email = emailParam;
-  }
-
-  void setNome(String nomeParam) {
-    nome = nomeParam;
+    if (isActiveChecked) checkBoxErrorValue = null;
   }
 
   void setSenha(String senhaParam) {
@@ -79,17 +69,24 @@ class SingnUpController {
     await Future.delayed(const Duration(seconds: 2));
   }
 
-  String? validaeEmail(String? value) {
-    if (isEmailValid) {
-      return null;
+  String? validadeSenha(String? value) {
+    if (!senhaValida) {
+      return 'falta algum requisito';
     }
-    return 'Email inválido';
+    return null;
   }
 
-  String? validateNome(String? value) {
-    if (isNomeValido) {
-      return null;
+  String? validadeConfirmaSenha(String? value) {
+    if (!isConfirmarSenhaValida) {
+      return 'Senha não coincidem';
     }
-    return 'Senha invalida';
+    return null;
+  }
+
+  bool snacBarCheack() {
+    if (!isActiveChecked) {
+      return true;
+    }
+    return false;
   }
 }

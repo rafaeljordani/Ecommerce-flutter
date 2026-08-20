@@ -6,6 +6,7 @@ import 'package:ecommerce/shared/app_text_style.dart';
 import 'package:ecommerce/shared/widgets/app_check_box.dart';
 import 'package:ecommerce/shared/widgets/app_elevated_button.dart';
 import 'package:ecommerce/shared/widgets/app_text_field.dart';
+import 'package:ecommerce/utils.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -19,8 +20,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   LoginController loginController = LoginController();
-
   final GlobalKey<FormState> key = GlobalKey<FormState>();
+  Utils utils = Utils();
 
   @override
   void initState() {
@@ -75,35 +76,33 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const Spacer(flex: 2),
                     AppTextField(
+                      controller: loginController.emailControler,
                       validator: (value) {
-                        return loginController.validaeEmail(value);
+                        return utils.validaeEmail(
+                          loginController.emailControler.text,
+                        );
                       },
                       hintText: 'email@dominio.com',
-                      onChanged: (value) {
-                        setState(() {
-                          loginController.setEmail(value);
-                        });
-                      },
                     ),
                     const SizedBox(height: 20),
                     AppTextField(
                       validator: (value) {
-                        return loginController.validateSenha(value);
+                        return utils.validateSenha(
+                          loginController.senhaControler.text,
+                        );
                       },
                       hintText: '************',
                       obscureText: true,
-                      onChanged: (value) {
-                        setState(() {
-                          loginController.setSenha(value);
-                        });
-                      },
+                      controller: loginController.senhaControler,
                     ),
                     Row(
                       children: [
                         AppCheckbox(
                           loginController.isActiveChecked,
                           onChanged: (value) {
-                            setState(() {});
+                            setState(() {
+                              loginController.changeActiveBox();
+                            });
                           },
                         ),
                         const Text('Lembrar-me'),

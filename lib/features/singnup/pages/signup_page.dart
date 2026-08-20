@@ -1,9 +1,11 @@
 import 'package:ecommerce/features/singnup/controllers/singn_up_controller.dart';
+import 'package:ecommerce/shared/app_snack_bar.dart';
 import 'package:ecommerce/shared/app_text_style.dart';
 import 'package:ecommerce/shared/widgets/app_check_box.dart';
 import 'package:ecommerce/shared/widgets/app_elevated_button.dart';
 import 'package:ecommerce/shared/widgets/app_text_field.dart';
 import 'package:ecommerce/shared/widgets/app_password_requirement.dart';
+import 'package:ecommerce/utils.dart';
 import 'package:flutter/material.dart';
 
 class SignupPage extends StatefulWidget {
@@ -17,6 +19,7 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   SingnUpController singnUpController = SingnUpController();
+  Utils utils = Utils();
 
   final GlobalKey<FormState> key = GlobalKey<FormState>();
 
@@ -25,8 +28,14 @@ class _SignupPageState extends State<SignupPage> {
     super.initState();
   }
 
-  Future<void> login() async {
+  Future<void> _login() async {
     if (key.currentState!.validate()) {
+      if (singnUpController.snacBarCheack()) {
+        setState(() {
+          singnUpController.checkBoxErrorValue = true;
+        });
+        return;
+      }
       setState(() {
         singnUpController.isLoding = true;
       });
@@ -67,28 +76,27 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                     ),
                     AppTextField(
+                      controller: singnUpController.emailControler,
                       validator: (value) {
-                        return singnUpController.validaeEmail(value);
+                        return utils.validaeEmail(
+                          singnUpController.emailControler.text,
+                        );
                       },
                       hintText: 'email@dominio.com',
-                      onChanged: (value) {
-                        setState(() {
-                          singnUpController.setEmail(value);
-                        });
+                    ),
+                    AppTextField(
+                      controller: singnUpController.nomeControler,
+                      validator: (value) {
+                        return utils.validateNome(
+                          singnUpController.nomeControler.text,
+                        );
                       },
+                      hintText: 'nome',
                     ),
                     AppTextField(
                       validator: (value) {
-                        return singnUpController.validateNome(value);
+                        return singnUpController.validadeSenha(value);
                       },
-                      hintText: 'nome',
-                      onChanged: (value) {
-                        setState(() {
-                          singnUpController.setNome(value);
-                        });
-                      },
-                    ),
-                    AppTextField(
                       hintText: 'senha',
                       obscureText: true,
                       onChanged: (value) {
@@ -98,6 +106,9 @@ class _SignupPageState extends State<SignupPage> {
                       },
                     ),
                     AppTextField(
+                      validator: (value) {
+                        return singnUpController.validadeConfirmaSenha(value);
+                      },
                       hintText: 'confirmar senha ',
                       obscureText: true,
                       onChanged: (value) {
@@ -143,6 +154,7 @@ class _SignupPageState extends State<SignupPage> {
                     Row(
                       children: [
                         AppCheckbox(
+                          errorValue: singnUpController.checkBoxErrorValue,
                           singnUpController.isActiveChecked,
                           onChanged: (value) {
                             setState(() {
@@ -180,7 +192,7 @@ class _SignupPageState extends State<SignupPage> {
                       type: ButtonType.filled,
                       textButton: 'Continuar ',
                       onPressed: () {
-                        login();
+                        _login();
                       },
                       isLoad: singnUpController.isLoding,
                     ),
