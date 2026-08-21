@@ -77,7 +77,7 @@ class _SignupPageState extends State<SignupPage> {
                     AppTextField(
                       controller: singnUpController.emailControler,
                       validator: (value) {
-                        return utils.validaeEmail(
+                        return Utils.validaeEmail(
                           singnUpController.emailControler.text,
                         );
                       },
@@ -86,7 +86,7 @@ class _SignupPageState extends State<SignupPage> {
                     AppTextField(
                       controller: singnUpController.nomeControler,
                       validator: (value) {
-                        return utils.validateNome(
+                        return Utils.validateNome(
                           singnUpController.nomeControler.text,
                         );
                       },
