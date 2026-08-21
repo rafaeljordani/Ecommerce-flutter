@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SingnUpController {
+class SingnUpController extends ChangeNotifier {
   bool isActiveChecked = false;
   bool? checkBoxErrorValue;
 
@@ -20,6 +20,8 @@ class SingnUpController {
 
   TextEditingController emailControler = TextEditingController();
   TextEditingController nomeControler = TextEditingController();
+
+  final GlobalKey<FormState> key = GlobalKey<FormState>();
 
   // FORMA DIFERETE DE FAZER
   // List<Map<String, bool>> getPasswordRequirements() {
@@ -54,17 +56,20 @@ class SingnUpController {
   void changeActiveCheckBox() {
     isActiveChecked = !isActiveChecked;
     if (isActiveChecked) checkBoxErrorValue = null;
+    notifyListeners();
   }
 
   void setSenha(String senhaParam) {
     senha = senhaParam;
+    notifyListeners();
   }
 
   void setConfirmaSenha(String confirmarSenhaParam) {
     confirmarSenha = confirmarSenhaParam;
+    notifyListeners();
   }
 
-  Future<void> login() async {
+  Future<void> loginDelay() async {
     //simula o delayed de uma chamada de API
     await Future.delayed(const Duration(seconds: 2));
   }
@@ -88,5 +93,20 @@ class SingnUpController {
       return true;
     }
     return false;
+  }
+
+  Future<void> hadleSignUp() async {
+    if (key.currentState!.validate()) {
+      if (snacBarCheack()) {
+        notifyListeners();
+        checkBoxErrorValue = true;
+        return;
+      }
+      isLoding = true;
+      notifyListeners();
+    }
+    await loginDelay();
+    isLoding = false;
+    notifyListeners();
   }
 }
