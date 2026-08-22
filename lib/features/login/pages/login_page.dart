@@ -1,3 +1,4 @@
+import 'package:ecommerce/features/home/pages/home_page.dart';
 import 'package:ecommerce/features/login/controllers/login_controller.dart';
 import 'package:ecommerce/features/recover/pages/recover_page.dart';
 import 'package:ecommerce/features/singnup/pages/signup_page.dart';
@@ -21,11 +22,11 @@ class LoginPage extends StatelessWidget {
       //Safeare desconta espaços do dispositivo ex:barra superior
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Form(
-            key: key,
-            child: Consumer<LoginController>(
-              builder: (context, controller, child) {
-                return SizedBox(
+          child: Consumer<LoginController>(
+            builder: (context, controller, child) {
+              return Form(
+                key: controller.key,
+                child: SizedBox(
                   height:
                       MediaQuery.of(context).size.height -
                       MediaQuery.of(context).padding.top -
@@ -97,8 +98,17 @@ class LoginPage extends StatelessWidget {
                         ),
                         AppElevatedButton(
                           type: ButtonType.filled,
-                          onPressed: () {
-                            controller.login();
+                          onPressed: () async {
+                            try {
+                              await controller.handleLogin();
+                              Navigator.pushNamed(
+                                context,
+                                HomePage.route,
+                                arguments: 'vim da login',
+                              );
+                            } catch (e) {
+                              //algo aqui
+                            }
                           },
                           textButton: 'Entrar',
                           isLoad: controller.isLoding,
@@ -145,9 +155,9 @@ class LoginPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
         ),
       ),

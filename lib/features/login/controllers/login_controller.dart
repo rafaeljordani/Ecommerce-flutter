@@ -1,10 +1,20 @@
 import 'package:ecommerce/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+class User {
+  final String name;
+  final String email;
+
+  User({required this.name, required this.email});
+}
 
 class LoginController extends ChangeNotifier {
   bool isActiveButton = false;
   bool isActiveChecked = false;
   bool isLoding = false;
+
+  User? user;
 
   TextEditingController emailControler = TextEditingController();
   TextEditingController senhaControler = TextEditingController();
@@ -18,20 +28,24 @@ class LoginController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> login() async {
+  Future<void> handleLogin() async {
     if (key.currentState!.validate()) {
       isLoding = true;
-
       notifyListeners();
 
-      await loginDelay();
+      await login();
       isLoding = false;
       notifyListeners();
+      emailControler.clear();
+      senhaControler.clear();
+      return;
     }
+    throw ErrorDescription('validacao_incorreta');
   }
 
-  Future<void> loginDelay() async {
+  Future<void> login() async {
     //simula o delayed de uma chamada de API
     await Future.delayed(const Duration(seconds: 2));
+    user = User(name: 'nome', email: emailControler.text);
   }
 }
