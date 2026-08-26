@@ -1,3 +1,4 @@
+import 'package:ecommerce/features/home/controllers/home_controller.dart';
 import 'package:ecommerce/features/login/controllers/login_controller.dart';
 import 'package:ecommerce/features/login/pages/login_page.dart';
 import 'package:ecommerce/features/singnup/controllers/singn_up_controller.dart';
@@ -19,6 +20,11 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) {
             return LoginController();
+          },
+        ),
+        ChangeNotifierProvider(
+          create: (context) {
+            return HomeController();
           },
         ),
         ChangeNotifierProvider(
