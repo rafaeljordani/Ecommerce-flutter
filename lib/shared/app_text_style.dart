@@ -45,4 +45,10 @@ class AppTextStyle {
     color: AppColors.green,
     fontWeight: FontWeight.bold,
   );
+
+  static TextStyle textPrice = const TextStyle(
+    color: AppColors.black,
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+  );
 }
