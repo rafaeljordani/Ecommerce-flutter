@@ -1,6 +1,8 @@
 import 'package:ecommerce/features/home/controllers/home_controller.dart';
 import 'package:ecommerce/features/home/models/category_model.dart';
 import 'package:ecommerce/features/home/models/product_model.dart';
+import 'package:ecommerce/features/home/widgets/categories_section.dart';
+import 'package:ecommerce/features/home/widgets/products_section.dart';
 import 'package:ecommerce/features/login/controllers/login_controller.dart';
 import 'package:ecommerce/shared/app_colors.dart';
 import 'package:ecommerce/shared/app_text_style.dart';
@@ -48,7 +50,7 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsetsGeometry.only(right: 24),
+                    padding: EdgeInsets.only(right: 24),
                     child: Container(
                       height: 150,
                       width: 350,
@@ -60,92 +62,16 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   const AppTextFieldExtends(text: 'Categorias'),
-                  SizedBox(
-                    child: switch (homeController.categoriesState) {
-                      CategoriesViewState.loading => const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                      CategoriesViewState.error => const Text(
-                        'Problema ao resgatar categorias',
-                      ),
-                      CategoriesViewState.success => SizedBox(
-                        height: 150,
-                        child: ListView.builder(
-                          itemCount: homeController.categories.length,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            Category category =
-                                homeController.categories[index];
-                            return Container(
-                              margin: const EdgeInsets.only(right: 5, top: 10),
-                              height: 50,
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Image.network(category.imageUrl),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 8.0),
-                                    child: Text(
-                                      category.name,
-                                      style: AppTextStyle.subTitle,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    },
+                  CategoriesSection(
+                    categories: homeController.categories,
+                    viewState: homeController.categoriesState,
                   ),
                   const AppTextFieldExtends(text: 'Produtos'),
-                  SizedBox(
-                    child: switch (homeController.productsState) {
-                      ProductsViewState.loading => const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                      ProductsViewState.error => const Text(
-                        'Problema ao resgatar produtos',
-                      ),
-                      ProductsViewState.success => SizedBox(
-                        height: 250,
-                        child: ListView.builder(
-                          itemCount: homeController.products.length,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            Product product = homeController.products[index];
-                            return Container(
-                              margin: const EdgeInsets.only(right: 10, top: 10),
-                              height: 50,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Image.network(product.imageUrl),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 8.0),
-                                    child: Text(
-                                      product.brand,
-                                      style: AppTextStyle.texSpanGrey,
-                                    ),
-                                  ),
-                                  Text(
-                                    product.name,
-                                    style: AppTextStyle.subTitle,
-                                  ),
-                                  Text(
-                                    '\$${product.price.toString()}',
-                                    style: AppTextStyle.textPrice,
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    },
+                  ProductsSection(
+                    products: homeController.products,
+                    viewState: homeController.productsState,
                   ),
+                  Spacer(flex: 1),
                   AppElevatedButton(
                     type: ButtonType.filled,
                     textButton: 'Carregar',
