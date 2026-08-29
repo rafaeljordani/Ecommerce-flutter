@@ -12,7 +12,7 @@ class CardProducts extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(right: 10, top: 10),
-      height: 148,
+
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

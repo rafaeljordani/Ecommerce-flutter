@@ -1,6 +1,4 @@
 import 'package:ecommerce/features/home/controllers/home_controller.dart';
-import 'package:ecommerce/features/home/models/category_model.dart';
-import 'package:ecommerce/features/home/models/product_model.dart';
 import 'package:ecommerce/features/home/widgets/categories_section.dart';
 import 'package:ecommerce/features/home/widgets/products_section.dart';
 import 'package:ecommerce/features/login/controllers/login_controller.dart';
@@ -58,7 +56,10 @@ class _HomePageState extends State<HomePage> {
                         color: AppColors.grey100,
                         borderRadius: BorderRadius.circular(15),
                       ),
-                      child: Container(width: 10, color: AppColors.black),
+                      child: Text(
+                        'Aproveite as \n ofertas',
+                        style: AppTextStyle.title,
+                      ),
                     ),
                   ),
                   const AppTextFieldExtends(text: 'Categorias'),
@@ -71,14 +72,16 @@ class _HomePageState extends State<HomePage> {
                     products: homeController.products,
                     viewState: homeController.productsState,
                   ),
-                  Spacer(flex: 1),
-                  AppElevatedButton(
-                    type: ButtonType.filled,
-                    textButton: 'Carregar',
-                    onPressed: () {
-                      homeController.getCategories();
-                      homeController.getProducts();
-                    },
+                  Padding(
+                    padding: const EdgeInsets.only(right: 24),
+                    child: AppElevatedButton(
+                      type: ButtonType.filled,
+                      textButton: 'Carregar',
+                      onPressed: () {
+                        homeController.getCategories();
+                        homeController.getProducts();
+                      },
+                    ),
                   ),
                 ],
               ),
