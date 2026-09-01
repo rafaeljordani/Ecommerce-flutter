@@ -1,7 +1,7 @@
 class Utils {
   String email = '';
 
-  String? validaeEmail(String? value) {
+  static String? validaeEmail(String? value) {
     RegExp emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
     bool isEmailValid = emailRegex.hasMatch(value!.trim());
 
@@ -11,7 +11,7 @@ class Utils {
     return 'Email inválido';
   }
 
-  String? validateSenha(String? value) {
+  static String? validateSenha(String? value) {
     int caracterMinimo = 6;
     RegExp senhaCaracterExpecial = RegExp(r'[!@#$%^&*(),.?":{}|<>]');
     RegExp senhaCaracterMauscula = RegExp(r'[A-Z]');
@@ -34,7 +34,7 @@ class Utils {
     return 'Senha invalida';
   }
 
-  String? validateNome(String? value) {
+  static String? validateNome(String? value) {
     RegExp nameRegex = RegExp(
       r"^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:[ '-][A-Za-zÀ-ÖØ-öø-ÿ]+)*$",
     );
