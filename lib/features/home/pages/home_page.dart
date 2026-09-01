@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce/features/home/controllers/home_controller.dart';
 import 'package:ecommerce/features/home/widgets/categories_section.dart';
 import 'package:ecommerce/features/home/widgets/products_section.dart';
@@ -47,21 +48,7 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.only(left: 24),
               child: Column(
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(right: 24),
-                    child: Container(
-                      height: 150,
-                      width: 350,
-                      decoration: BoxDecoration(
-                        color: AppColors.grey100,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Text(
-                        'Aproveite as \n ofertas',
-                        style: AppTextStyle.title,
-                      ),
-                    ),
-                  ),
+                  Padding(padding: EdgeInsets.only(right: 24)),
                   const AppTextFieldExtends(text: 'Categorias'),
                   CategoriesSection(
                     categories: homeController.categories,

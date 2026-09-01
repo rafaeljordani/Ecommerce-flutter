@@ -1,6 +1,5 @@
-import 'package:ecommerce/features/home/controllers/home_controller.dart';
-import 'package:ecommerce/features/products_categorys/controllers/products_by_category_controller.dart';
-import 'package:ecommerce/features/products_categorys/widgets/products_by_category_section.dart';
+import 'package:ecommerce/features/home/controllers/products_by_category_controller.dart';
+import 'package:ecommerce/features/home/widgets/products_by_category_section.dart';
 import 'package:ecommerce/shared/widgets/app_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +19,9 @@ class _ProductsByCategoryPageState extends State<ProductsByCategoryPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback(((timeStamp) {
-      context.read<ProductsByCategoryController>().getProducts();
+      context.read<ProductsByCategoryController>().getProducts(
+        widget.categoryName,
+      );
     }));
   }
 
@@ -30,23 +31,27 @@ class _ProductsByCategoryPageState extends State<ProductsByCategoryPage> {
         title: Text(widget.categoryName),
         actions: const [Icon(Icons.shopping_cart_outlined, size: 28)],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          children: [
-            AppTextField(hintText: 'Rabanete'),
-
-            Consumer<ProductsByCategoryController>(
-              builder: (context, controller, child) {
-                return ProductsByCategorySection(
-                  products: controller.products,
+      body: Consumer<ProductsByCategoryController>(
+        builder: (context, controller, child) {
+          return Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              children: [
+                AppTextField(
+                  hintText: 'Rabanete',
+                  onChanged: (value) {
+                    controller.getSearch(value);
+                  },
+                ),
+                ProductsByCategorySection(
+                  products: controller.searchList,
                   viewState: controller.productsState,
                   categoryName: widget.categoryName,
-                );
-              },
+                ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

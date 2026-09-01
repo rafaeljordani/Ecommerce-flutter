@@ -1,12 +1,11 @@
 import 'package:ecommerce/features/home/controllers/home_controller.dart';
-import 'package:ecommerce/features/home/models/category_model.dart';
 import 'package:ecommerce/features/home/models/product_model.dart';
 import 'package:ecommerce/shared/mocks.dart';
 import 'package:flutter/material.dart';
 
 class ProductsByCategoryController extends ChangeNotifier {
   List<Product> products = [];
-
+  List<Product> searchList = [];
   ProductsViewState productsState = ProductsViewState.loading;
 
   void changeProductsState(ProductsViewState state) {
@@ -14,19 +13,33 @@ class ProductsByCategoryController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getProducts() async {
+  void getSearch(String text) {
+    try {
+      searchList = products.where((items) {
+        print('ola');
+        return items.name.toString().toLowerCase().contains(text.toLowerCase());
+      }).toList();
+      changeProductsState(ProductsViewState.success);
+    } catch (e) {
+      changeProductsState(ProductsViewState.error);
+    }
+  }
+
+  void getProducts(String category) async {
     changeProductsState(ProductsViewState.loading);
     await Future.delayed(const Duration(seconds: 3));
 
     try {
-      products = productsJson.map((item) {
-        print(item);
-        final numeros = [1, 2, 3, 4, 5];
-
-        {
-          return Product.fromJson(item);
-        }
-      }).toList();
+      products = productsJson
+          .where((items) {
+            return items['category'].toString().toLowerCase() ==
+                category.toLowerCase();
+          })
+          .map((items) {
+            return Product.fromJson(items);
+          })
+          .toList();
+      searchList = List.from(products);
       changeProductsState(ProductsViewState.success);
     } catch (e) {
       changeProductsState(ProductsViewState.error);
