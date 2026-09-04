@@ -51,4 +51,17 @@ class AppTextStyle {
     fontSize: 20,
     fontWeight: FontWeight.bold,
   );
+
+  static TextStyle textPriceModal = const TextStyle(
+    color: AppColors.black,
+    fontSize: 28,
+    fontWeight: FontWeight.bold,
+  );
+
+  static TextStyle texModelGrey = const TextStyle(
+    color: AppColors.grey,
+    fontSize: 20,
+  );
+
+  static TextStyle textModel = const TextStyle(fontSize: 16);
 }
