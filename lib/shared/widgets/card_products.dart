@@ -1,6 +1,6 @@
 import 'package:ecommerce/features/home/models/product_model.dart';
 import 'package:ecommerce/shared/app_text_style.dart';
-import 'package:ecommerce/shared/exceptions/modals.dart';
+import 'package:ecommerce/shared/modals.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 

@@ -1,4 +1,5 @@
 import 'package:ecommerce/features/home/controllers/home_controller.dart';
+import 'package:ecommerce/features/home/pages/home_page.dart';
 import 'package:ecommerce/features/login/controllers/login_controller.dart';
 import 'package:ecommerce/features/login/pages/login_page.dart';
 import 'package:ecommerce/features/home/controllers/products_by_category_controller.dart';
@@ -42,7 +43,7 @@ class MainApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           routes: AppRoutes.routes,
-          initialRoute: LoginPage.route,
+          initialRoute: HomePage.route,
         );
       },
     );

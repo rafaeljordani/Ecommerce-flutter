@@ -3,22 +3,6 @@ import 'package:ecommerce/shared/app_text_style.dart';
 import 'package:ecommerce/shared/widgets/app_elevated_button.dart';
 import 'package:flutter/material.dart';
 
-class Modals {
-  Future<dynamic> AppBottomSheet(BuildContext context, Product product) {
-    return showModalBottomSheet(
-      isScrollControlled: true,
-
-      // barrierColor:,
-      enableDrag: true,
-      showDragHandle: true,
-      context: context,
-      builder: (context) {
-        return ModalProductCard(product: product);
-      },
-    );
-  }
-}
-
 class ModalProductCard extends StatelessWidget {
   const ModalProductCard({super.key, required this.product});
 
