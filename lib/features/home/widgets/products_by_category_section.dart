@@ -1,6 +1,6 @@
 import 'package:ecommerce/features/home/controllers/home_controller.dart';
 import 'package:ecommerce/features/home/models/product_model.dart';
-import 'package:ecommerce/shared/app_colors.dart';
+import 'package:ecommerce/shared/app_text_not_find.dart';
 import 'package:ecommerce/shared/widgets/card_products.dart';
 import 'package:ecommerce/shared/mocks.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,7 @@ class ProductsByCategorySection extends StatelessWidget {
   Widget build(BuildContext context) {
     if (viewState == ProductsViewState.error) return const Text('Erro');
     if (viewState == ProductsViewState.success && products.isEmpty)
-      return Container(color: Colors.red, height: 20, width: 20);
+      return AppTextNotFind();
     return Expanded(
       child: Skeletonizer(
         enabled: viewState == ProductsViewState.loading,
