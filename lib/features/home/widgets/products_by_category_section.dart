@@ -21,8 +21,9 @@ class ProductsByCategorySection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (viewState == ProductsViewState.error) return const Text('Erro');
-    if (viewState == ProductsViewState.success && products.isEmpty)
-      return AppTextNotFind();
+    if (viewState == ProductsViewState.success && products.isEmpty) {
+      return const AppTextNotFind();
+    }
     return Expanded(
       child: Skeletonizer(
         enabled: viewState == ProductsViewState.loading,

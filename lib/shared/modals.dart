@@ -1,9 +1,7 @@
-import 'package:ecommerce/features/home/models/product_model.dart';
-import 'package:ecommerce/shared/modal_product_card.dart';
 import 'package:flutter/material.dart';
 
 class Modals {
-  Future<dynamic> AppBottomSheet(BuildContext context, Product product) {
+  Future<dynamic> appBottomSheet(BuildContext context, Widget body) {
     return showModalBottomSheet(
       isScrollControlled: true,
 
@@ -12,7 +10,7 @@ class Modals {
       showDragHandle: true,
       context: context,
       builder: (context) {
-        return ModalProductCard(product: product);
+        return body;
       },
     );
   }

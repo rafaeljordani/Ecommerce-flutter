@@ -1,5 +1,6 @@
 import 'package:ecommerce/features/home/models/product_model.dart';
 import 'package:ecommerce/shared/app_text_style.dart';
+import 'package:ecommerce/shared/modal_product_card.dart';
 import 'package:ecommerce/shared/modals.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -14,7 +15,7 @@ class CardProducts extends StatelessWidget {
     Modals modals = Modals();
     return GestureDetector(
       onTap: () {
-        modals.AppBottomSheet(context, product);
+        modals.appBottomSheet(context, ModalProductCard(product: product));
       },
       child: Container(
         margin: const EdgeInsets.only(right: 10, top: 10),

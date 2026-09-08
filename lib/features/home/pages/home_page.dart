@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce/features/home/controllers/home_controller.dart';
 import 'package:ecommerce/features/home/widgets/categories_section.dart';
@@ -33,14 +35,76 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Consumer<LoginController>(
-      //     builder: (context, loginController, child) {
-      //       return Text('Olá, ${loginController.user!.name}');
-      //     },
-      //   ),
-      //   actions: const [Icon(Icons.shopping_cart_outlined, size: 28)],
-      // ),
+      appBar: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 10.0),
+          child: IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (_) => Dialog(
+                  child: Container(
+                    height: 200,
+                    width: 400,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Column(
+                      spacing: 20,
+                      children: [
+                        const Spacer(),
+                        const Text(
+                          'Porfavor cofirme',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const Text(
+                          'Voce tem certeza de fechar o aplicativo',
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        const Spacer(),
+                        Row(
+                          spacing: 20,
+                          children: [
+                            Expanded(
+                              child: AppElevatedButton(
+                                type: ButtonType.dialogButton,
+                                textButton: 'Voltar',
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ),
+                            Expanded(
+                              child: AppElevatedButton(
+                                type: ButtonType.dialogButton,
+                                textButton: 'Fechar app',
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                  exit(0);
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+        title: Consumer<LoginController>(
+          builder: (context, loginController, child) {
+            return Text('Olá, ${loginController.user!.name}');
+          },
+        ),
+        actions: const [Icon(Icons.shopping_cart_outlined, size: 28)],
+      ),
       body: Consumer<HomeController>(
         builder: (context, homeController, child) {
           return SafeArea(
@@ -58,17 +122,6 @@ class _HomePageState extends State<HomePage> {
                   ProductsSection(
                     products: homeController.products,
                     viewState: homeController.productsState,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 24),
-                    child: AppElevatedButton(
-                      type: ButtonType.filled,
-                      textButton: 'Carregar',
-                      onPressed: () {
-                        homeController.getCategories();
-                        homeController.getProducts();
-                      },
-                    ),
                   ),
                 ],
               ),
