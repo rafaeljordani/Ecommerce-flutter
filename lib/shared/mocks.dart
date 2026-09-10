@@ -21,6 +21,7 @@ final List<Map<String, dynamic>> productsJson = [
     'imageUrl': 'https://i.postimg.cc/BQMWr9B8/Image.png',
     'price': 7.99,
     'category': 'Frutas',
+    //
   },
   {
     'brand': 'Natural da Terra',
