@@ -1,4 +1,4 @@
-import 'package:ecommerce/features/home/controllers/cheackout_controller.dart';
+import 'package:ecommerce/features/home/controllers/cardcontroller.dart';
 import 'package:ecommerce/features/home/controllers/home_controller.dart';
 import 'package:ecommerce/features/login/controllers/login_controller.dart';
 import 'package:ecommerce/features/login/pages/login_page.dart';
@@ -41,7 +41,7 @@ class MainApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) {
-            return CheackoutController();
+            return CardController();
           },
         ),
       ],
