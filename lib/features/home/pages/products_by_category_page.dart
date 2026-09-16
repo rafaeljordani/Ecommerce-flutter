@@ -34,8 +34,6 @@ class _ProductsByCategoryPageState extends State<ProductsByCategoryPage> {
       ),
       body: Consumer<ProductsByCategoryController>(
         builder: (context, controller, child) {
-          // print(controller.brandList);
-
           return Padding(
             padding: const EdgeInsets.all(24.0),
             child: Column(

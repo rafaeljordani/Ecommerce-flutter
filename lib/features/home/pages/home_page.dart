@@ -1,12 +1,9 @@
 import 'dart:io';
-
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:ecommerce/features/cart/pages/cart_page.dart';
 import 'package:ecommerce/features/home/controllers/home_controller.dart';
 import 'package:ecommerce/features/home/widgets/categories_section.dart';
 import 'package:ecommerce/features/home/widgets/products_section.dart';
 import 'package:ecommerce/features/login/controllers/login_controller.dart';
-import 'package:ecommerce/shared/app_colors.dart';
-import 'package:ecommerce/shared/app_text_style.dart';
 import 'package:ecommerce/shared/widgets/app_elevated_button.dart';
 import 'package:ecommerce/shared/widgets/app_text_field_extends.dart';
 import 'package:flutter/material.dart';
@@ -103,7 +100,15 @@ class _HomePageState extends State<HomePage> {
             return Text('Olá, ${loginController.user!.name}');
           },
         ),
-        actions: const [Icon(Icons.shopping_cart_outlined, size: 28)],
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, CartPage.route);
+            },
+            icon: const Icon(Icons.shopping_cart_outlined, size: 28),
+            //Visibility
+          ),
+        ],
       ),
       body: Consumer<HomeController>(
         builder: (context, homeController, child) {
@@ -112,7 +117,7 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.only(left: 24),
               child: Column(
                 children: [
-                  Padding(padding: EdgeInsets.only(right: 24)),
+                  const Padding(padding: EdgeInsets.only(right: 24)),
                   const AppTextFieldExtends(text: 'Categorias'),
                   CategoriesSection(
                     categories: homeController.categories,

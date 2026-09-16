@@ -1,3 +1,4 @@
+import 'package:ecommerce/features/cart/pages/cart_page.dart';
 import 'package:ecommerce/features/home/pages/home_page.dart';
 import 'package:ecommerce/features/login/pages/login_page.dart';
 import 'package:ecommerce/features/home/pages/products_by_category_page.dart';
@@ -15,5 +16,6 @@ class AppRoutes {
       final categoryName = ModalRoute.of(context)!.settings.arguments as String;
       return ProductsByCategoryPage(categoryName: categoryName);
     },
+    CartPage.route: (context) => const CartPage(),
   };
 }

@@ -64,4 +64,10 @@ class AppTextStyle {
   );
 
   static TextStyle textModel = const TextStyle(fontSize: 16);
+
+  static TextStyle textPriceCartWidgt = const TextStyle(
+    color: AppColors.black,
+    fontSize: 17,
+    fontWeight: FontWeight.bold,
+  );
 }

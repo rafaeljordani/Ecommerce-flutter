@@ -11,6 +11,9 @@ class ProductCart extends Product {
     this.quantity = 0,
   });
   int quantity;
+  double? get subtotal {
+    return quantity * price;
+  }
 
   factory ProductCart.fromProduct(Product product) {
     return ProductCart(
@@ -24,7 +27,7 @@ class ProductCart extends Product {
   }
 }
 
-class CardController extends ChangeNotifier {
+class CartController extends ChangeNotifier {
   List<ProductCart> productsCard = [];
 
   bool hasProduct(Product product) {
@@ -45,6 +48,12 @@ class CardController extends ChangeNotifier {
   void decrement(Product product) {
     ProductCart? productExistent = validationProduct(product);
     productExistent!.quantity--;
+    notifyListeners();
+  }
+
+  void removeProducFromList(Product product) {
+    ProductCart? productExistent = validationProduct(product);
+    productsCard.removeAt(productsCard.indexOf(productExistent!));
     notifyListeners();
   }
 

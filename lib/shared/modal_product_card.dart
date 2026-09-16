@@ -1,12 +1,9 @@
-import 'package:ecommerce/features/home/controllers/cardcontroller.dart';
+import 'package:ecommerce/features/cart/controllers/cartcontroller.dart';
 import 'package:ecommerce/features/home/models/product_model.dart';
 import 'package:ecommerce/shared/app_stepper_card.dart';
 
 import 'package:ecommerce/shared/app_text_style.dart';
 import 'package:ecommerce/shared/widgets/app_elevated_button.dart';
-
-import 'package:ecommerce/shared/widgets/app_elevated_button_card_product.dart';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -54,7 +51,7 @@ class ModalProductCard extends StatelessWidget {
               style: AppTextStyle.textPriceModal,
             ),
             const SizedBox(height: 10),
-            Consumer<CardController>(
+            Consumer<CartController>(
               builder: (context, controller, child) {
                 if (controller.hasProduct(product)) {
                   return Row(
@@ -65,11 +62,18 @@ class ModalProductCard extends StatelessWidget {
                         child: AppStepperCard(
                           decrement: '-',
                           getDecrement: () {
+                            if (controller.getQuatity(product) == 1) {
+                              showDialog(
+                                context: context,
+                                builder: (_) => AlertDialog(),
+                              );
+                              // controller.removeProducFromList(product);
+                            }
                             controller.decrement(product);
                           },
 
                           ///LEMBRA QUE VOCE VAI FAZER A VALIDACAO DO MODAL AQUI POR FORA,
-                          ///E O TEXT VOCE VAI FAZER TIPO decrement: if(bool == false 'revocer : '-')
+                          ///E O TEXT VOCE VAI FAZER TIPO decrement: if(bool == false 'remover : ' - ')
                           icrement: '+',
                           getIncrement: () {
                             controller.incrementProduct(product);
