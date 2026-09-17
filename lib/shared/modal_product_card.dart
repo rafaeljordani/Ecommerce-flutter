@@ -1,5 +1,7 @@
 import 'package:ecommerce/features/cart/controllers/cartcontroller.dart';
 import 'package:ecommerce/features/home/models/product_model.dart';
+import 'package:ecommerce/shared/app_colors.dart';
+import 'package:ecommerce/shared/app_dialog_remove_product.dart';
 import 'package:ecommerce/shared/app_stepper_card.dart';
 
 import 'package:ecommerce/shared/app_text_style.dart';
@@ -47,7 +49,7 @@ class ModalProductCard extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              'R\$${product.price.toString()}',
+              'R\$${product.price.toString().replaceAll('.', ',')}',
               style: AppTextStyle.textPriceModal,
             ),
             const SizedBox(height: 10),
@@ -61,19 +63,22 @@ class ModalProductCard extends StatelessWidget {
                       Expanded(
                         child: AppStepperCard(
                           decrement: '-',
-                          getDecrement: () {
+                          getDecrement: () async {
                             if (controller.getQuatity(product) == 1) {
-                              showDialog(
+                              final removeOrNot = await showDialog<bool>(
                                 context: context,
-                                builder: (_) => AlertDialog(),
+                                builder: (_) => AppDialogRemoveProduct(
+                                  nameProduct: product.name,
+                                ),
                               );
-                              // controller.removeProducFromList(product);
+                              if (removeOrNot!) {
+                                controller.removeProducFromList(product);
+                              }
+                              return;
                             }
+
                             controller.decrement(product);
                           },
-
-                          ///LEMBRA QUE VOCE VAI FAZER A VALIDACAO DO MODAL AQUI POR FORA,
-                          ///E O TEXT VOCE VAI FAZER TIPO decrement: if(bool == false 'remover : ' - ')
                           icrement: '+',
                           getIncrement: () {
                             controller.incrementProduct(product);

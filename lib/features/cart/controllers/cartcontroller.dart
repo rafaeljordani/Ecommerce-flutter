@@ -68,4 +68,19 @@ class CartController extends ChangeNotifier {
     }).firstOrNull;
     return productExistent;
   }
+
+  double get totalPriceCart {
+    return productsCard.fold(0, (sun, item) => sun + item.subtotal!);
+  }
+
+  bool visibilityStack() {
+    final bool visibilty;
+    if (productsCard.isEmpty) {
+      visibilty = false;
+    } else {
+      visibilty = true;
+    }
+    notifyListeners();
+    return visibilty;
+  }
 }
