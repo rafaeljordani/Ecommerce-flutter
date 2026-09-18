@@ -1,6 +1,5 @@
-import 'package:ecommerce/features/cart/controllers/cartcontroller.dart';
+import 'package:ecommerce/features/cart/models/product_cart_model.dart';
 import 'package:ecommerce/shared/app_colors.dart';
-import 'package:ecommerce/shared/app_dialog_remove_product.dart';
 import 'package:ecommerce/shared/app_stepper_card.dart';
 import 'package:ecommerce/shared/app_text_style.dart';
 import 'package:ecommerce/utils.dart';
@@ -12,13 +11,11 @@ class CartProductCard extends StatelessWidget {
     required this.product,
     required this.increment,
     required this.decrement,
-    required this.isnot,
   });
 
   final ProductCart product;
   final VoidCallback increment;
   final VoidCallback decrement;
-  final VoidCallback isnot;
 
   @override
   Widget build(BuildContext context) {
@@ -82,19 +79,6 @@ class CartProductCard extends StatelessWidget {
                     AppStepperCard(
                       decrement: '-',
                       getDecrement: () async {
-                        if (product.quantity == 1) {
-                          final removeOrNot = await showDialog<bool>(
-                            context: context,
-                            builder: (_) => AppDialogRemoveProduct(
-                              nameProduct: product.name,
-                            ),
-                          );
-                          if (removeOrNot!) {
-                            isnot();
-                          }
-                          return;
-                        }
-
                         decrement();
                       },
                       icrement: '+',

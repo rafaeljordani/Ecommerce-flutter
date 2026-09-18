@@ -1,3 +1,4 @@
+import 'package:ecommerce/features/cart/pages/Checkout_page.dart';
 import 'package:ecommerce/features/cart/pages/cart_page.dart';
 import 'package:ecommerce/features/home/pages/home_page.dart';
 import 'package:ecommerce/features/login/pages/login_page.dart';
@@ -17,5 +18,6 @@ class AppRoutes {
       return ProductsByCategoryPage(categoryName: categoryName);
     },
     CartPage.route: (context) => const CartPage(),
+    CheckoutPage.route: (context) => const CheckoutPage(),
   };
 }

@@ -1,6 +1,6 @@
 import 'package:ecommerce/features/home/controllers/home_controller.dart';
 import 'package:ecommerce/features/home/models/product_model.dart';
-import 'package:ecommerce/shared/widgets/card_products.dart';
+import 'package:ecommerce/shared/widgets/app_card_products.dart';
 import 'package:ecommerce/shared/mocks.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -28,7 +28,7 @@ class ProductsSection extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             final category = _getProductsList()[index];
-            return CardProducts(product: category);
+            return AppCardProducts(product: category);
           },
         ),
       ),

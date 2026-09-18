@@ -1,4 +1,4 @@
-import 'package:ecommerce/features/cart/controllers/cartcontroller.dart';
+import 'package:ecommerce/features/cart/controllers/cart_controller.dart';
 
 import 'package:ecommerce/shared/app_colors.dart';
 import 'package:ecommerce/shared/app_text_style.dart';

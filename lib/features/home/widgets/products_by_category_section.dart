@@ -1,7 +1,7 @@
 import 'package:ecommerce/features/home/controllers/home_controller.dart';
 import 'package:ecommerce/features/home/models/product_model.dart';
 import 'package:ecommerce/shared/app_text_not_find.dart';
-import 'package:ecommerce/shared/widgets/card_products.dart';
+import 'package:ecommerce/shared/widgets/app_card_products.dart';
 import 'package:ecommerce/shared/mocks.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -33,7 +33,7 @@ class ProductsByCategorySection extends StatelessWidget {
             itemCount: _getProductsList().length,
             itemBuilder: (context, index) {
               final category = _getProductsList()[index];
-              return CardProducts(product: category);
+              return AppCardProducts(product: category);
             },
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: MediaQuery.of(context).size.width / 2,

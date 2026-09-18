@@ -1,31 +1,6 @@
+import 'package:ecommerce/features/cart/models/product_cart_model.dart';
 import 'package:ecommerce/features/home/models/product_model.dart';
 import 'package:flutter/material.dart';
-
-class ProductCart extends Product {
-  ProductCart({
-    required super.name,
-    required super.imageUrl,
-    required super.brand,
-    required super.price,
-    required super.category,
-    this.quantity = 0,
-  });
-  int quantity;
-  double? get subtotal {
-    return quantity * price;
-  }
-
-  factory ProductCart.fromProduct(Product product) {
-    return ProductCart(
-      name: product.name,
-      imageUrl: product.imageUrl,
-      brand: product.brand,
-      price: product.price,
-      category: product.category,
-      quantity: 1,
-    );
-  }
-}
 
 class CartController extends ChangeNotifier {
   List<ProductCart> productsCard = [];
@@ -71,16 +46,5 @@ class CartController extends ChangeNotifier {
 
   double get totalPriceCart {
     return productsCard.fold(0, (sun, item) => sun + item.subtotal!);
-  }
-
-  bool visibilityStack() {
-    final bool visibilty;
-    if (productsCard.isEmpty) {
-      visibilty = false;
-    } else {
-      visibilty = true;
-    }
-    notifyListeners();
-    return visibilty;
   }
 }

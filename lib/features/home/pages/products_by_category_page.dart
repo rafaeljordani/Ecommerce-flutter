@@ -1,8 +1,9 @@
-import 'package:ecommerce/features/cart/controllers/cartcontroller.dart';
+import 'package:ecommerce/features/cart/controllers/cart_controller.dart';
 import 'package:ecommerce/features/cart/pages/cart_page.dart';
 import 'package:ecommerce/features/home/controllers/home_controller.dart';
 import 'package:ecommerce/features/home/controllers/products_by_category_controller.dart';
 import 'package:ecommerce/features/home/widgets/products_by_category_section.dart';
+import 'package:ecommerce/shared/app_cart_icon.dart';
 import 'package:ecommerce/shared/widgets/app_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -32,35 +33,7 @@ class _ProductsByCategoryPageState extends State<ProductsByCategoryPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.categoryName),
-        actions: [
-          Stack(
-            alignment: Alignment.topRight,
-            children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, CartPage.route);
-                },
-                icon: const Icon(Icons.shopping_cart_outlined, size: 28),
-              ),
-              Consumer<CartController>(
-                builder: (context, cartController, child) {
-                  bool visibilty = cartController.visibilityStack();
-                  return Visibility(
-                    visible: visibilty,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Text('${cartController.productsCard.length}'),
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
-        ],
+        actions: const [AppCartIcon()],
       ),
       body: Consumer<ProductsByCategoryController>(
         builder: (context, controller, child) {

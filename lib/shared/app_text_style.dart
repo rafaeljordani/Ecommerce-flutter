@@ -70,4 +70,10 @@ class AppTextStyle {
     fontSize: 17,
     fontWeight: FontWeight.bold,
   );
+
+  static TextStyle textBold = const TextStyle(
+    color: AppColors.black,
+    fontSize: 12,
+    fontWeight: FontWeight.bold,
+  );
 }

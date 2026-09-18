@@ -1,10 +1,11 @@
 import 'dart:io';
-import 'package:ecommerce/features/cart/controllers/cartcontroller.dart';
+import 'package:ecommerce/features/cart/controllers/cart_controller.dart';
 import 'package:ecommerce/features/cart/pages/cart_page.dart';
 import 'package:ecommerce/features/home/controllers/home_controller.dart';
 import 'package:ecommerce/features/home/widgets/categories_section.dart';
 import 'package:ecommerce/features/home/widgets/products_section.dart';
 import 'package:ecommerce/features/login/controllers/login_controller.dart';
+import 'package:ecommerce/shared/app_cart_icon.dart';
 import 'package:ecommerce/shared/widgets/app_elevated_button.dart';
 import 'package:ecommerce/shared/widgets/app_text_field_extends.dart';
 import 'package:flutter/material.dart';
@@ -101,35 +102,7 @@ class _HomePageState extends State<HomePage> {
             return Text('Olá, ${loginController.user!.name}');
           },
         ),
-        actions: [
-          Stack(
-            alignment: Alignment.topRight,
-            children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, CartPage.route);
-                },
-                icon: const Icon(Icons.shopping_cart_outlined, size: 28),
-              ),
-              Consumer<CartController>(
-                builder: (context, cartController, child) {
-                  bool visibilty = cartController.visibilityStack();
-                  return Visibility(
-                    visible: visibilty,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Text('${cartController.productsCard.length}'),
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
-        ],
+        actions: const [AppCartIcon()],
       ),
       body: Consumer<HomeController>(
         builder: (context, homeController, child) {

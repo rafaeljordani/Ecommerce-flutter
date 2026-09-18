@@ -1,4 +1,4 @@
-import 'package:ecommerce/features/cart/controllers/cartcontroller.dart';
+import 'package:ecommerce/features/cart/controllers/cart_controller.dart';
 import 'package:ecommerce/features/home/controllers/home_controller.dart';
 import 'package:ecommerce/features/login/controllers/login_controller.dart';
 import 'package:ecommerce/features/login/pages/login_page.dart';

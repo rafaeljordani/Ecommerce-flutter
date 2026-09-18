@@ -5,8 +5,8 @@ import 'package:ecommerce/shared/modals.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class CardProducts extends StatelessWidget {
-  const CardProducts({super.key, required this.product});
+class AppCardProducts extends StatelessWidget {
+  const AppCardProducts({super.key, required this.product});
 
   final Product product;
 
@@ -35,7 +35,7 @@ class CardProducts extends StatelessWidget {
             ),
             Text(product.name, style: AppTextStyle.subTitle),
             Text(
-              '\$${product.price.toString()}',
+              '\$${product.price.toString().replaceAll('.', ',')}',
               style: AppTextStyle.textPrice,
             ),
           ],
