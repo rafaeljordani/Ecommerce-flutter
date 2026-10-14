@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:ecommerce/features/singnup/controllers/singn_up_controller.dart';
+import 'package:ecommerce/shared/app_snack_bar.dart';
 import 'package:ecommerce/shared/app_text_style.dart';
 import 'package:ecommerce/shared/widgets/app_check_box.dart';
 import 'package:ecommerce/shared/widgets/app_elevated_button.dart';
@@ -157,8 +159,13 @@ class SignupPage extends StatelessWidget {
                         AppElevatedButton(
                           type: ButtonType.filled,
                           textButton: 'Continuar ',
-                          onPressed: () {
-                            controller.hadleSignUp();
+                          onPressed: () async {
+                            try {
+                              await controller.hadleSignUp();
+                            } catch (e) {
+                              // print(e);
+                              AppSnackBar.error(context, e.toString());
+                            }
                           },
                           isLoad: controller.isLoding,
                         ),

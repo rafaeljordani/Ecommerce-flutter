@@ -1,4 +1,15 @@
+import 'package:dio/dio.dart';
+import 'package:ecommerce/features/singnup/services/signup_services.dart';
 import 'package:flutter/material.dart';
+
+class SignupException implements Exception {
+  SignupException(this.message);
+
+  final String message;
+
+  @override
+  String toString() => message;
+}
 
 class SingnUpController extends ChangeNotifier {
   bool isActiveChecked = false;
@@ -23,16 +34,7 @@ class SingnUpController extends ChangeNotifier {
 
   final GlobalKey<FormState> key = GlobalKey<FormState>();
 
-  // FORMA DIFERETE DE FAZER
-  // List<Map<String, bool>> getPasswordRequirements() {
-  //   return [
-  //     {'Mínimo de 6 caracteres': isSenhaCaracterMinimo},
-  //     {'No mínimo um caracter especial': isSenhaEspecial},
-  //     {'No mínimo uma letra maiúscula': isSenhaCaracterMaiuscula},
-  //     {'No mínimo uma letra minúscula': isSenhaCaracterMinuscula},
-  //     {'As senhas coincidem': isConfirmarSenhaValida},
-  //   ];
-  // }
+  final SignupService signupService = SignupService();
 
   bool get isConfirmarSenhaValida {
     if (confirmarSenha.isEmpty) {
@@ -96,17 +98,35 @@ class SingnUpController extends ChangeNotifier {
   }
 
   Future<void> hadleSignUp() async {
-    if (key.currentState!.validate()) {
+    if (!key.currentState!.validate()) {
       if (snacBarCheack()) {
         notifyListeners();
         checkBoxErrorValue = true;
         return;
       }
-      isLoding = true;
       notifyListeners();
+      return;
     }
-    await loginDelay();
-    isLoding = false;
-    notifyListeners();
+
+    try {
+      await signupService.registerUser(
+        nomeControler.text,
+        emailControler.text,
+        senha,
+        confirmarSenha,
+        isActiveChecked,
+      );
+      isLoding = false;
+      notifyListeners();
+    } on DioException catch (e) {
+      isLoding = false;
+      notifyListeners();
+
+      throw SignupException(
+        e.response?.data['message']?.toString() ??
+            e.message ??
+            'Erro desconhecido',
+      );
+    }
   }
 }
