@@ -1,6 +1,10 @@
 import 'package:ecommerce/features/home/models/category_model.dart';
 import 'package:ecommerce/features/home/models/product_model.dart';
-import 'package:ecommerce/shared/mocks.dart';
+import 'package:ecommerce/features/home/services/category_services.dart';
+import 'package:ecommerce/features/home/services/products_services.dart';
+import 'package:ecommerce/features/login/controllers/login_controller.dart';
+import 'package:ecommerce/shared/ecom_http_client.dart';
+import 'package:ecommerce/features/home/data/mocks.dart';
 import 'package:flutter/material.dart';
 
 enum CategoriesViewState { loading, success, error }
@@ -14,6 +18,9 @@ class HomeController extends ChangeNotifier {
   CategoriesViewState categoriesState = CategoriesViewState.loading;
   ProductsViewState productsState = ProductsViewState.loading;
 
+  CategoryServices categoryServices = CategoryServices();
+  ProductsServices productsServices = ProductsServices();
+
   void changeCategoriesState(CategoriesViewState state) {
     categoriesState = state;
     notifyListeners();
@@ -24,37 +31,42 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getCategories() async {
+  Future<bool> getCategories() async {
     changeCategoriesState(CategoriesViewState.loading);
-    await Future.delayed(const Duration(seconds: 3));
 
     try {
-      categories = categoriesJson.map((item) {
-        print(item);
-        {
-          return Category.fromJson(item);
-        }
-      }).toList();
+      categories = await categoryServices.getCategories();
       changeCategoriesState(CategoriesViewState.success);
-    } catch (e) {
+      return true;
+    } on EcomHttpException catch (e) {
       changeCategoriesState(CategoriesViewState.error);
+      throw LoginException(
+        (e.data is Map ? e.data['message']?.toString() : null) ??
+            e.message ??
+            'Erro desconhecido',
+      );
+    } catch (_) {
+      changeCategoriesState(CategoriesViewState.error);
+      rethrow;
     }
   }
 
-  void getProducts() async {
+  Future<bool> getProducts() async {
     changeProductsState(ProductsViewState.loading);
-    await Future.delayed(const Duration(seconds: 3));
-
     try {
-      products = productsJson.map((item) {
-        print(item);
-        {
-          return Product.fromJson(item);
-        }
-      }).toList();
+      products = await productsServices.getProducts();
       changeProductsState(ProductsViewState.success);
-    } catch (e) {
+      return true;
+    } on EcomHttpException catch (e) {
       changeProductsState(ProductsViewState.error);
+      throw LoginException(
+        (e.data is Map ? e.data['message']?.toString() : null) ??
+            e.message ??
+            'Erro desconhecido',
+      );
+    } catch (_) {
+      changeProductsState(ProductsViewState.error);
+      rethrow;
     }
   }
 }

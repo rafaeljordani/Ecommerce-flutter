@@ -1,7 +1,6 @@
 import 'package:ecommerce/features/login/model/auth_user.dart';
 import 'package:ecommerce/features/login/services/login_services.dart';
 import 'package:ecommerce/shared/ecom_http_client.dart';
-import 'package:ecommerce/shared/exceptions/auth_excepetion.dart';
 import 'package:ecommerce/utils.dart';
 import 'package:flutter/material.dart';
 

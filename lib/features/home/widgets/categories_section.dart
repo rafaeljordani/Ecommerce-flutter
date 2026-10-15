@@ -1,7 +1,7 @@
 import 'package:ecommerce/features/home/controllers/home_controller.dart';
 import 'package:ecommerce/features/home/models/category_model.dart';
 import 'package:ecommerce/features/home/widgets/card_categories.dart';
-import 'package:ecommerce/shared/mocks.dart';
+import 'package:ecommerce/features/home/data/home_loading_placeholders.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 

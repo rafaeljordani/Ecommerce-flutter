@@ -7,6 +7,9 @@ class ProductCart extends Product {
     required super.brand,
     required super.price,
     required super.category,
+    required super.id,
+    required super.categoryId,
+    required super.description,
     this.quantity = 0,
   });
   int quantity;
@@ -22,6 +25,9 @@ class ProductCart extends Product {
       price: product.price,
       category: product.category,
       quantity: 1,
+      id: '',
+      categoryId: product.categoryId,
+      description: product.description,
     );
   }
 }
