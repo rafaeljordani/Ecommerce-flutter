@@ -1,11 +1,10 @@
-import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:ecommerce/features/home/pages/home_page.dart';
 import 'package:ecommerce/features/login/controllers/login_controller.dart';
 import 'package:ecommerce/features/recover/pages/recover_page.dart';
 import 'package:ecommerce/features/singnup/pages/signup_page.dart';
 import 'package:ecommerce/shared/app_colors.dart';
+import 'package:ecommerce/shared/app_snack_bar.dart';
 import 'package:ecommerce/shared/app_text_style.dart';
-import 'package:ecommerce/shared/exceptions/auth_excepetion.dart';
 import 'package:ecommerce/shared/widgets/app_check_box.dart';
 import 'package:ecommerce/shared/widgets/app_elevated_button.dart';
 import 'package:ecommerce/shared/widgets/app_text_field.dart';
@@ -103,20 +102,15 @@ class LoginPage extends StatelessWidget {
                           onPressed: () async {
                             try {
                               await controller.handleLogin();
-                              Navigator.popAndPushNamed(
+                              Navigator.of(
                                 context,
-                                HomePage.route,
-                                arguments: 'vim da login',
-                              );
-                            } on AuthExcepetion catch (e) {
-                              AnimatedSnackBar.material(
-                                e.message,
-                                type: AnimatedSnackBarType.error,
-                                mobileSnackBarPosition:
-                                    MobileSnackBarPosition.bottom,
-                              ).show(context);
+                              ).popAndPushNamed(HomePage.route);
+                            } catch (e) {
+                              // print(e);
+                              AppSnackBar.error(context, e.toString());
                             }
                           },
+
                           textButton: 'Entrar',
                           isLoad: controller.isLoding,
                         ),

@@ -1,20 +1,20 @@
-import 'package:ecommerce/features/login/model/auth_user.dart';
-import 'package:dio/dio.dart';
+import 'package:ecommerce/shared/ecom_http_client.dart';
 
 class SignupService {
-  String baseUrl = "https://api-production-c0289.up.railway.app/api/v1/";
+  SignupService({EcomHttpClient? httpClient})
+      : _httpClient = httpClient ?? DioEcomHttpClient();
 
-  Future<AuthUser> registerUser(
+  final EcomHttpClient _httpClient;
+
+  Future<void> registerUser(
     String name,
     String email,
     String password,
     String confirmPassword,
     bool acceptedTerms,
   ) async {
-    final dio = Dio();
-
-    final response = await dio.post(
-      '${baseUrl}auth/register',
+    final response = await _httpClient.post(
+      'auth/register',
       data: {
         "name": name,
         "email": email,
@@ -24,7 +24,16 @@ class SignupService {
       },
     );
 
-    if (response.statusCode != 201) throw Exception(response.data['message']);
-    return AuthUser.fromJson(response.data);
+    if (response.statusCode != 201) {
+      final message = response.data is Map
+          ? response.data['message']?.toString()
+          : null;
+      throw EcomHttpException(
+        statusCode: response.statusCode,
+        data: response.data,
+        message: message ?? 'Não foi possível criar a conta',
+      );
+    }
+
   }
 }

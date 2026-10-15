@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
         ),
         title: Consumer<LoginController>(
           builder: (context, loginController, child) {
-            return Text('Olá, ${loginController.user!.name}');
+            return Text('Olá, ${loginController.authUser!.user!.name}');
           },
         ),
         actions: const [AppCartIcon()],

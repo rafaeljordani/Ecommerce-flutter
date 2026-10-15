@@ -1,5 +1,5 @@
-import 'package:dio/dio.dart';
 import 'package:ecommerce/features/singnup/services/signup_services.dart';
+import 'package:ecommerce/shared/ecom_http_client.dart';
 import 'package:flutter/material.dart';
 
 class SignupException implements Exception {
@@ -71,6 +71,17 @@ class SingnUpController extends ChangeNotifier {
     notifyListeners();
   }
 
+  void clearSignupFields() {
+    key.currentState?.reset();
+    emailControler.clear();
+    nomeControler.clear();
+    senha = '';
+    confirmarSenha = '';
+    isActiveChecked = false;
+    checkBoxErrorValue = null;
+    notifyListeners();
+  }
+
   Future<void> loginDelay() async {
     //simula o delayed de uma chamada de API
     await Future.delayed(const Duration(seconds: 2));
@@ -90,24 +101,24 @@ class SingnUpController extends ChangeNotifier {
     return null;
   }
 
-  bool snacBarCheack() {
+  Future<bool> hadleSignUp() async {
+    final formIsValid = key.currentState?.validate() ?? false;
+    final requiredDataIsValid =
+        emailControler.text.trim().isNotEmpty &&
+        nomeControler.text.trim().isNotEmpty &&
+        senhaValida &&
+        isConfirmarSenhaValida;
     if (!isActiveChecked) {
-      return true;
+      checkBoxErrorValue = true;
     }
-    return false;
-  }
 
-  Future<void> hadleSignUp() async {
-    if (!key.currentState!.validate()) {
-      if (snacBarCheack()) {
-        notifyListeners();
-        checkBoxErrorValue = true;
-        return;
-      }
+    if (!formIsValid || !requiredDataIsValid || !isActiveChecked) {
       notifyListeners();
-      return;
+      return false;
     }
 
+    isLoding = true;
+    notifyListeners();
     try {
       await signupService.registerUser(
         nomeControler.text,
@@ -116,17 +127,16 @@ class SingnUpController extends ChangeNotifier {
         confirmarSenha,
         isActiveChecked,
       );
-      isLoding = false;
-      notifyListeners();
-    } on DioException catch (e) {
-      isLoding = false;
-      notifyListeners();
-
+      return true;
+    } on EcomHttpException catch (e) {
       throw SignupException(
-        e.response?.data['message']?.toString() ??
+        (e.data is Map ? e.data['message']?.toString() : null) ??
             e.message ??
             'Erro desconhecido',
       );
+    } finally {
+      isLoding = false;
+      notifyListeners();
     }
   }
 }
