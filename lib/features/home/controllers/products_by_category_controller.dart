@@ -1,6 +1,7 @@
 import 'package:ecommerce/features/home/controllers/home_controller.dart';
 import 'package:ecommerce/features/home/models/product_model.dart';
 import 'package:ecommerce/features/home/data/mocks.dart';
+import 'package:ecommerce/features/home/services/products_services.dart';
 import 'package:flutter/material.dart';
 
 class ProductsByCategoryController extends ChangeNotifier {
@@ -9,6 +10,8 @@ class ProductsByCategoryController extends ChangeNotifier {
   List<String> brandList = [];
   ProductsViewState productsState = ProductsViewState.loading;
   String search = '';
+
+  ProductsServices productsServices = ProductsServices();
 
   void changeProductsState(ProductsViewState state) {
     productsState = state;
@@ -28,23 +31,13 @@ class ProductsByCategoryController extends ChangeNotifier {
   }
 
   void getProducts(String category) async {
-    brandList = [];
     search = '';
     changeProductsState(ProductsViewState.loading);
     await Future.delayed(const Duration(seconds: 3));
 
     try {
-      productList = productsJson
-          .where((items) {
-            return items['category'].toString().toLowerCase() ==
-                category.toLowerCase();
-          })
-          .map((items) {
-            brandList.add(items['brand']);
-            return Product.fromJson(items);
-          })
-          .toList();
-      brandList = brandList.toSet().toList();
+      productList = await productsServices.getProductsByCategory(category);
+      brandList = productList.map((e) => e.brand).toSet().toList();
       searchList = List.from(productList);
       changeProductsState(ProductsViewState.success);
     } catch (e) {

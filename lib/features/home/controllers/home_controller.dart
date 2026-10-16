@@ -4,7 +4,6 @@ import 'package:ecommerce/features/home/services/category_services.dart';
 import 'package:ecommerce/features/home/services/products_services.dart';
 import 'package:ecommerce/features/login/controllers/login_controller.dart';
 import 'package:ecommerce/shared/ecom_http_client.dart';
-import 'package:ecommerce/features/home/data/mocks.dart';
 import 'package:flutter/material.dart';
 
 enum CategoriesViewState { loading, success, error }
@@ -31,13 +30,12 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> getCategories() async {
+  Future getCategories() async {
     changeCategoriesState(CategoriesViewState.loading);
 
     try {
       categories = await categoryServices.getCategories();
       changeCategoriesState(CategoriesViewState.success);
-      return true;
     } on EcomHttpException catch (e) {
       changeCategoriesState(CategoriesViewState.error);
       throw LoginException(
@@ -47,16 +45,14 @@ class HomeController extends ChangeNotifier {
       );
     } catch (_) {
       changeCategoriesState(CategoriesViewState.error);
-      rethrow;
     }
   }
 
-  Future<bool> getProducts() async {
+  Future getProducts() async {
     changeProductsState(ProductsViewState.loading);
     try {
       products = await productsServices.getProducts();
       changeProductsState(ProductsViewState.success);
-      return true;
     } on EcomHttpException catch (e) {
       changeProductsState(ProductsViewState.error);
       throw LoginException(
@@ -66,7 +62,6 @@ class HomeController extends ChangeNotifier {
       );
     } catch (_) {
       changeProductsState(ProductsViewState.error);
-      rethrow;
     }
   }
 }

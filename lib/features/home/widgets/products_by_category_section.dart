@@ -1,4 +1,5 @@
 import 'package:ecommerce/features/home/controllers/home_controller.dart';
+import 'package:ecommerce/features/home/models/category_model.dart';
 import 'package:ecommerce/features/home/models/product_model.dart';
 import 'package:ecommerce/shared/app_text_not_find.dart';
 import 'package:ecommerce/shared/widgets/app_card_products.dart';
@@ -11,12 +12,12 @@ class ProductsByCategorySection extends StatelessWidget {
     super.key,
     required this.products,
     required this.viewState,
-    required this.categoryName,
+    required this.category,
   });
 
   final List<Product> products;
   final ProductsViewState viewState;
-  final String categoryName;
+  final Category category;
 
   @override
   Widget build(BuildContext context) {

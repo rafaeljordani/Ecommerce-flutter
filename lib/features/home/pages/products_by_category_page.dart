@@ -8,10 +8,12 @@ import 'package:ecommerce/shared/widgets/app_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ProductsByCategoryPage extends StatefulWidget {
-  const ProductsByCategoryPage({super.key, required this.categoryName});
+import '../models/category_model.dart';
 
-  final String categoryName;
+class ProductsByCategoryPage extends StatefulWidget {
+  const ProductsByCategoryPage({super.key, required this.category});
+
+  final Category category;
   static String route = '/productsByCategory';
 
   @override
@@ -24,7 +26,7 @@ class _ProductsByCategoryPageState extends State<ProductsByCategoryPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback(((timeStamp) {
       context.read<ProductsByCategoryController>().getProducts(
-        widget.categoryName,
+        widget.category.id,
       );
     }));
   }
@@ -32,7 +34,7 @@ class _ProductsByCategoryPageState extends State<ProductsByCategoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.categoryName),
+        title: Text(widget.category.name),
         actions: const [AppCartIcon()],
       ),
       body: Consumer<ProductsByCategoryController>(
@@ -67,7 +69,7 @@ class _ProductsByCategoryPageState extends State<ProductsByCategoryPage> {
                 ProductsByCategorySection(
                   products: controller.searchList,
                   viewState: controller.productsState,
-                  categoryName: widget.categoryName,
+                  category: widget.category,
                 ),
               ],
             ),
